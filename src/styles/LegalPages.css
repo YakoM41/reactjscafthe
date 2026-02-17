@@ -1,0 +1,49 @@
+.legal-page-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+}
+
+.legal-page-container h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #333;
+}
+
+.legal-page-container h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: #555;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.legal-page-container p,
+.legal-page-container ul,
+.legal-page-container li {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.legal-page-container ul {
+    padding-left: 2rem;
+}
+
+.legal-page-container a {
+    color: #000;
+    text-decoration: underline;
+}
+
+.legal-page-container a:hover {
+    color: #555;
+}

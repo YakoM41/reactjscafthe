@@ -1,0 +1,186 @@
+/* General Page Styles */
+.notre-histoire-page {
+    color: #333;
+    padding-top: 0;
+}
+
+section {
+    padding: 4rem 2rem;
+}
+
+/* Section 1: Hero */
+.nh-hero {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    padding: 25px 0px; /* Override generic section padding */
+}
+.pre-title{
+    color: #A0795F;
+}
+
+.nh-hero-content {
+    max-width: 800px;
+    padding-top: 120px; /* Adjust for overlaid header */
+    padding-bottom: 2rem;
+    margin-right: 40rem;
+}
+
+.nh-hero h1 {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.nh-stats {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    padding-top: 1.5rem;
+}
+
+.nh-stats h2 {
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+/* Section 2: Vision */
+.nh-vision {
+    display: flex;
+    gap: 4rem;
+    text-align: left;
+    background-color: #FBF9F3;
+    padding-block: 8rem;
+}
+
+.nh-vision-title {
+    flex-basis: 40%;
+}
+
+.nh-vision-title h2 {
+    font-family: serif;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.nh-vision-text {
+    flex-basis: 60%;
+}
+
+.nh-quote {
+    margin-top: 2rem;
+    padding-left: 1.5rem;
+    border-left: 3.5px solid #8B4513; /* Brown color */
+    font-style: italic;
+    font-size: 1.2rem;
+    padding-block: 1rem;
+    background-color: #F5F1EB;
+}
+
+.nh-quote footer {
+    margin-top: 0.5rem;
+    font-style: normal;
+    font-size: 1rem;
+}
+
+/* Section 3: Image Grid */
+.nh-image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+    gap: 0;
+}
+.nh-image-placeholder {
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Section 4: Eco-responsabilité */
+.nh-eco {
+    background-color: #FBF9F3;
+}
+.nh-eco h2 {
+    font-size: 3rem;
+    text-align: center;
+    padding-inline: 28rem;
+}
+
+.nh-eco p{
+    text-align: center;
+}
+
+.nh-eco-cards {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+.nh-card {
+    display: block;
+    justify-items: center;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.nh-card-icon {
+    font-size: 2.5rem;
+}
+
+/* Section 5: Certifications */
+.nh-certifications {
+    background-color: #F5F0E1;
+}
+.nh-certifications h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.nh-cert-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 13rem;
+}
+.nh-cert-card-log{
+    justify-items: center;
+
+}
+
+.nh-cert-icon{
+    font-size: 3rem;
+}
+/* Section 6: CTA */
+.nh-cta {
+    background-size: cover;
+    background-position: center;
+    color: white;
+    display: block;
+    justify-items: center;
+    padding-block: 10rem;
+    margin-top: 2rem;
+}
+.nh-cta h2 {
+    font-size: 2.5rem;
+}
+.nh-cta button {
+display: block;
+    justify-items: center;
+    padding: 1rem 2rem;
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+}
+
