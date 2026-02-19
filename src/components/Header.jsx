@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext.jsx";
 import { useCart } from "../contexts/CartContext.jsx";
 import "../styles/header.css";
@@ -15,9 +15,28 @@ import cartIcon from "../assets/images/icons/ButtonCart.svg";
 function Header({ isTransparent }) {
   const { user, isAuthenticated, logout } = useContext(AuthContext);
   const { cartItems } = useCart();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/produits?search=${encodeURIComponent(searchTerm)}`);
+      setIsSearchOpen(false);
+      setSearchTerm("");
+    }
+  };
+
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
+    if (!isSearchOpen) {
+      setTimeout(() => document.getElementById("searchInput")?.focus(), 100);
+    }
   };
 
   const totalItemsInCart = cartItems.reduce(
@@ -51,13 +70,27 @@ function Header({ isTransparent }) {
       </Link>
 
       <div className="navActions">
-        <Link to="/recherche" className="navIcons">
-          <img
-            src={searchIcon}
-            className="nav-icon-img"
-            alt="Recherche"
-          />
-        </Link>
+        <div className={`search-container ${isSearchOpen ? "active" : ""}`}>
+          {isSearchOpen && (
+            <form onSubmit={handleSearchSubmit} className="search-form">
+              <input
+                id="searchInput"
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Rechercher..."
+                className="search-input"
+              />
+            </form>
+          )}
+          <button onClick={toggleSearch} className="navIcons search-btn">
+            <img
+              src={searchIcon}
+              className="nav-icon-img"
+              alt="Recherche"
+            />
+          </button>
+        </div>
 
         <div className="accountSection">
           {isAuthenticated ? (

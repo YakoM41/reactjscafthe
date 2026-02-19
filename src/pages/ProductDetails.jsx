@@ -34,7 +34,7 @@ function ProductDetails() {
         setIsLoading(true);
         setError(null);
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/produits/${id}`
+          `${import.meta.env.VITE_API_URL}/api/produits/${id}`,
         );
         if (!response.ok) {
           throw new Error(`Erreur HTTP ${response.status}`);
@@ -73,10 +73,14 @@ function ProductDetails() {
           <Skeleton height={500} width={"100%"} />
         </div>
         <div className="product-info-section">
-          <Skeleton height={20} width="50%" style={{ marginBottom: "1.5rem" }} />
+          <Skeleton
+            height={20}
+            width="50%"
+            style={{ marginBottom: "1.5rem" }}
+          />
           <Skeleton height={50} width="90%" style={{ marginBottom: "1rem" }} />
           <Skeleton height={30} width="40%" style={{ marginBottom: "2rem" }} />
-          <Skeleton height={60} width="100%" style={{ marginBottom: "2rem" }}/>
+          <Skeleton height={60} width="100%" style={{ marginBottom: "2rem" }} />
           <Skeleton height={50} width="100%" style={{ marginBottom: "1rem" }} />
           <Skeleton height={50} width="100%" style={{ marginBottom: "1rem" }} />
           <Skeleton height={50} width="100%" />
@@ -115,15 +119,20 @@ function ProductDetails() {
       </div>
       <div className="product-info-section">
         <div className="breadcrumb">
-          <Link to="/">Accueil</Link> /{" "}
-          <Link to="/produits">Produits</Link> / {produit.Nom_produit}
+          <Link to="/">Accueil</Link> / <Link to="/produits">Produits</Link> /{" "}
+          {produit.Nom_produit}
         </div>
         <h1>{produit.Nom_produit}</h1>
         <p className="product-price">{produit.Prix_TTC} €</p>
-        
+
         <div className="product-actions">
           <div className="quantity-selector">
-            <button onClick={() => handleQuantityChange(-1)} disabled={quantity <= 1}>-</button>
+            <button
+              onClick={() => handleQuantityChange(-1)}
+              disabled={quantity <= 1}
+            >
+              -
+            </button>
             <input type="text" value={quantity} readOnly />
             <button onClick={() => handleQuantityChange(1)}>+</button>
           </div>
@@ -138,7 +147,7 @@ function ProductDetails() {
             isOpen={openAccordion === "description"}
             onClick={() => handleAccordionClick("description")}
           >
-            <p>{produit.Description}</p>
+            <p dangerouslySetInnerHTML={{ __html: produit.Description }}></p>
           </AccordionItem>
           <AccordionItem
             title="Caractéristiques"
@@ -146,9 +155,15 @@ function ProductDetails() {
             onClick={() => handleAccordionClick("features")}
           >
             <ul>
-              <li><strong>Poids :</strong> {produit.Poids || 'N/A'}</li>
-              <li><strong>Origine :</strong> {produit.Origine || 'N/A'}</li>
-              <li><strong>Catégorie :</strong> {produit.Categorie || 'N/A'}</li>
+              <li>
+                <strong>Poids :</strong> {produit.Poids || "N/A"}
+              </li>
+              <li>
+                <strong>Origine :</strong> {produit.Origines || "N/A"}
+              </li>
+              <li>
+                <strong>Catégorie :</strong> {produit.Catégorie || "N/A"}
+              </li>
             </ul>
           </AccordionItem>
           <AccordionItem

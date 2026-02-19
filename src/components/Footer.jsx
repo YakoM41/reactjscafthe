@@ -41,6 +41,9 @@ function Footer() {
             <li>
               <Link to="/about">Notre Histoire</Link>
             </li>
+            <li>
+              <Link to="/contact">Nous contacter</Link>
+            </li>
           </ul>
         </div>
         <div className="footer-contact">

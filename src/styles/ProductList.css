@@ -264,3 +264,19 @@ main{
 .product-card-button:hover {
   background-color: #a05a2c;
 }
+
+.reset-search-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #3A4A35;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.reset-search-link:hover {
+    background-color: #2c3928;
+}

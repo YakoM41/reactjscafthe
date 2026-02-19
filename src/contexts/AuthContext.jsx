@@ -33,6 +33,34 @@ export function AuthProvider({ children }) {
     setUser(userData);
   };
 
+  const updateUser = async (updatedData) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/clients/me`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedData),
+          credentials: "include",
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la mise à jour");
+      }
+
+      const data = await response.json();
+      // Assuming the API returns the updated user in the same format as /me
+      setUser(data.client || { ...user, ...updatedData }); 
+      return { success: true };
+    } catch (error) {
+      console.error("Erreur mise à jour profil:", error);
+      return { success: false, error: error.message };
+    }
+  };
+
   const logout = async () => {
     try {
       await fetch(`${import.meta.env.VITE_API_URL}/api/clients/logout`, {
@@ -49,6 +77,7 @@ export function AuthProvider({ children }) {
     user,
     login,
     logout,
+    updateUser,
     loading,
     isAuthenticated: !!user,
   };

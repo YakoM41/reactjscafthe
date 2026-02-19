@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import ProductCard from "../components/ProductCard.jsx";
 import "../styles/ProductList.css";
@@ -12,9 +12,11 @@ function ProductList() {
   const [produits, setProduits] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const query = useQuery();
   const categoryFromUrl = query.get("category");
+  const searchQuery = query.get("search");
 
   const [activeCategory, setActiveCategory] = useState("Tous les produits");
   const [activeOrigine, setActiveOrigine] = useState("Tous");
@@ -24,14 +26,17 @@ function ProductList() {
   useEffect(() => {
     if (categoryFromUrl) {
       const categoryMap = {
-        thes: "Thés",
-        cafes: "Cafés",
-        accessoires: "Accessoires",
+        thes: "Thé",
+        cafes: "Café",
+        accessoires: "Accessoire",
         "coffrets-cadeaux": "Coffrets Cadeaux",
       };
       setActiveCategory(categoryMap[categoryFromUrl] || "Tous les produits");
+    } else if (searchQuery) {
+        // Reset category if searching
+        setActiveCategory("Tous les produits");
     }
-  }, [categoryFromUrl]);
+  }, [categoryFromUrl, searchQuery]);
 
   useEffect(() => {
     const fetchProduits = async () => {
@@ -62,9 +67,9 @@ function ProductList() {
 
   const collections = [
     { name: "Tous les produits", count: 24 },
-    { name: "Thés", count: 12 },
-    { name: "Cafés", count: 8 },
-    { name: "Accessoires", count: 6 },
+    { name: "Thé", count: 6 },
+    { name: "Café", count: 6 },
+    { name: "Accessoire", count: 6 },
     { name: "Coffrets Cadeaux", count: 4 },
   ];
 
@@ -90,25 +95,34 @@ function ProductList() {
   const filteredAndSortedProducts = useMemo(() => {
     let filteredProducts = produits;
 
+    // Search Filter
+    if (searchQuery) {
+      const lowerQuery = searchQuery.toLowerCase();
+      filteredProducts = filteredProducts.filter((p) =>
+        p.Nom_produit.toLowerCase().includes(lowerQuery) ||
+        (p.Description && p.Description.toLowerCase().includes(lowerQuery))
+      );
+    }
+
     // Category Filter
     if (activeCategory !== "Tous les produits") {
       let categoryToFilter = activeCategory;
       switch (activeCategory) {
-        case "Thés":
-          categoryToFilter = "Thés";
+        case "Thé":
+          categoryToFilter = "Thé";
           break;
-        case "Cafés":
-          categoryToFilter = "Cafés";
+        case "Café":
+          categoryToFilter = "Café";
           break;
-        case "Accessoires":
-          categoryToFilter = "Accessoires";
+        case "Accessoire":
+          categoryToFilter = "Accessoire";
           break;
         case "Coffrets Cadeaux":
           categoryToFilter = "Coffrets cadeaux";
           break;
       }
-      filteredProducts = produits.filter(
-        (p) => p.Categorie === categoryToFilter,
+      filteredProducts = filteredProducts.filter(
+        (p) => p.Catégorie === categoryToFilter,
       );
     }
 
@@ -122,7 +136,7 @@ function ProductList() {
     }
 
     return sortedProducts;
-  }, [produits, activeCategory, activeOrigine, activePrice, sortOrder]);
+  }, [produits, activeCategory, activeOrigine, activePrice, sortOrder, searchQuery]);
 
   if (error) {
     return (
@@ -137,10 +151,20 @@ function ProductList() {
   return (
     <div className="product-list-container">
       <div className="product-list-header">
-        <h1>Nos Collections d'Exception</h1>
-        <p>
-          Découvrez notre sélection artisanale de thés, cafés et accessoires.
-        </p>
+        {searchQuery ? (
+            <>
+                <h1>Résultats de recherche</h1>
+                <p>Pour : "{searchQuery}"</p>
+                <Link to="/produits" className="reset-search-link">Voir tous les produits</Link>
+            </>
+        ) : (
+            <>
+                <h1>Nos Collections d'Exception</h1>
+                <p>
+                  Découvrez notre sélection artisanale de thés, cafés et accessoires.
+                </p>
+            </>
+        )}
       </div>
       <div className="page-content">
         <div className="sidebar">
