@@ -44,13 +44,13 @@ function Sitemap() {
           <h2>Mon compte</h2>
           <ul>
             <li>
-              <Link to="/login">Connexion</Link>
+              <Link to="/connexion">Connexion</Link>
             </li>
             <li>
-              <Link to="/register">Inscription</Link>
+              <Link to="/inscription">Inscription</Link>
             </li>
             <li>
-              <Link to="/forgot-password">Mot de passe oublié</Link>
+              <Link to="/mot-de-passe-oublie">Mot de passe oublié</Link>
             </li>
             <li>
               <Link to="/compte">Mon compte</Link>
@@ -62,7 +62,7 @@ function Sitemap() {
           <h2>À propos</h2>
           <ul>
             <li>
-              <Link to="/about">Notre histoire</Link>
+              <Link to="/notre-histoire">Notre histoire</Link>
             </li>
             <li>
               <Link to="/contact">Nous contacter</Link>
@@ -89,13 +89,17 @@ function Sitemap() {
           <h2>Informations légales</h2>
           <ul>
             <li>
-              <Link to="/legal-notice">Mentions légales</Link>
+              <Link to="/mentions-legales">Mentions légales</Link>
             </li>
             <li>
-              <Link to="/privacy-policy">Politique de confidentialité</Link>
+              <Link to="/politique-de-confidentialite">
+                Politique de confidentialité
+              </Link>
             </li>
             <li>
-              <Link to="/terms-of-sale">Conditions générales de vente</Link>
+              <Link to="/conditions-generales-de-vente">
+                Conditions générales de vente
+              </Link>
             </li>
           </ul>
         </div>

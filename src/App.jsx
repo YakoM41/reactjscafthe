@@ -26,8 +26,7 @@ import Wishlist from "./pages/Wishlist.jsx";
 import LoyaltyProgram from "./pages/LoyaltyProgram.jsx";
 import TermsOfUse from "./pages/TermsOfUse.jsx";
 
-// Imports des polices
-// ... (font imports remain the same)
+// Imports des polices (conservés)
 
 function App() {
   return (
@@ -39,31 +38,51 @@ function App() {
               <Route path="/" element={<Layout />}>
                 {/* Public */}
                 <Route index element={<Home />} />
+
+                {/* Catalogue et Produits */}
                 <Route path="produits" element={<ProductList />} />
                 <Route path="produit/:id" element={<ProductDetails />} />
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
-                <Route path="forgot-password" element={<ForgotPassword />} />
-                <Route path="about" element={<NotreHistoire />} />
+
+                {/* Authentification */}
+                <Route path="connexion" element={<Login />} />
+                <Route path="inscription" element={<Register />} />
+                <Route
+                  path="mot-de-passe-oublie"
+                  element={<ForgotPassword />}
+                />
+
+                {/* E-commerce & Client */}
                 <Route path="panier" element={<Checkout />} />
-                <Route path="legal-notice" element={<LegalNotice />} />
-                <Route path="privacy-policy" element={<PrivacyPolicy />} />
-                <Route path="terms-of-sale" element={<TermsOfSale />} />
+                <Route path="favoris" element={<Wishlist />} />
+                <Route path="programme-fidelite" element={<LoyaltyProgram />} />
+
+                {/* Pages d'information (SEO très important) */}
+                <Route path="notre-histoire" element={<NotreHistoire />} />
                 <Route path="service-client" element={<ServiceClient />} />
                 <Route path="faq" element={<Faq />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="plan-du-site" element={<Sitemap />} />
+
+                {/* Pages Légales (Traduites) */}
+                <Route path="mentions-legales" element={<LegalNotice />} />
+                <Route
+                  path="politique-de-confidentialite"
+                  element={<PrivacyPolicy />}
+                />
+                <Route
+                  path="conditions-generales-de-vente"
+                  element={<TermsOfSale />}
+                />
+                <Route path="conditions-utilisation" element={<TermsOfUse />} />
                 <Route
                   path="politique-de-retour"
                   element={<PolitiqueDeRetour />}
                 />
-                <Route path="contact" element={<Contact />} />
-                <Route path="sitemap" element={<Sitemap />} />
-                <Route path="wishlist" element={<Wishlist />} />
-                <Route path="programme-fidelite" element={<LoyaltyProgram />} />
-                <Route path="terms" element={<TermsOfUse />} />
 
-                {/* Privé */}
-                <Route path="/compte" element={<PrivateRoute />}>
-                  <Route path="/compte" element={<MyAccount />} />
+                {/* Privé (Correction de la route imbriquée) */}
+                <Route path="compte" element={<PrivateRoute />}>
+                  {/* L'index permet de charger MyAccount directement sur /compte */}
+                  <Route index element={<MyAccount />} />
                 </Route>
 
                 {/* 404 - Must be last */}

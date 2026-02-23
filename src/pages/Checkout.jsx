@@ -40,10 +40,10 @@ const Checkout = () => {
               <h2>Connexion requise</h2>
               <p>Vous devez être connecté pour continuer votre commande.</p>
               <div className="login-required-actions">
-                <Link to="/login" className="btn-primary">
+                <Link to="/connexion" className="btn-primary">
                   Se connecter
                 </Link>
-                <Link to="/register" className="btn-secondary">
+                <Link to="/inscription" className="btn-secondary">
                   Créer un compte
                 </Link>
               </div>

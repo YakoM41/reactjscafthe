@@ -45,11 +45,7 @@ function Login() {
   return (
     <div className="auth-container">
       <div className="auth-image-section">
-        <img
-          src={authImage}
-          alt="Illustration"
-          className="auth-image"
-        />
+        <img src={authImage} alt="Illustration" className="auth-image" />
       </div>
       <div className="auth-form-section">
         <form className="auth-form" onSubmit={handleSubmit}>
@@ -88,14 +84,14 @@ function Login() {
 
           <div className="auth-link">
             <p>
-              <Link to="/forgot-password">Mot de passe oublié ?</Link>
+              <Link to="/mot-de-passe-oublie">Mot de passe oublié ?</Link>
             </p>
           </div>
 
           <div className="auth-link">
             <p>
               Vous n'avez pas de compte ?{" "}
-              <Link to="/register">Inscrivez-vous</Link>
+              <Link to="/inscription">Inscrivez-vous</Link>
             </p>
           </div>
         </form>

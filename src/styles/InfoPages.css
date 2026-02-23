@@ -111,6 +111,11 @@
     margin-bottom: 1rem;
 }
 
+.use-condition{
+    color: #A0795F;
+    text-decoration: underline;
+}
+
 /* Info Page Header */
 .info-page-header {
     text-align: center;

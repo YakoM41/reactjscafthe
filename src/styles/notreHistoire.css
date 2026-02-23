@@ -33,6 +33,7 @@ section {
 .nh-hero h1 {
     font-size: 4rem;
     font-weight: bold;
+    font-family: "Playfair Display",serif;
 }
 
 .nh-stats {
@@ -63,7 +64,7 @@ section {
 }
 
 .nh-vision-title h2 {
-    font-family: serif;
+    font-family: "Playfair Display",serif;
     font-size: 3rem;
     font-weight: bold;
 }

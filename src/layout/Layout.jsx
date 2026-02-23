@@ -8,12 +8,15 @@ import BackToTopButton from "../components/BackToTopButton.jsx";
 
 function Layout() {
   const location = useLocation();
-  const isTransparentPage = location.pathname === "/" || location.pathname === "/about";
+  const isTransparentPage =
+    location.pathname === "/" || location.pathname === "/about";
 
   return (
     <>
       <Header isTransparent={isTransparentPage} />
-      <main style={{ paddingTop: isTransparentPage ? '0' : '80px' }}> {/* Adjust content padding based on header */}
+      <main style={{ paddingTop: isTransparentPage ? "0" : "10px" }}>
+        {" "}
+        {/* Adjust content padding based on header */}
         <Outlet />
       </main>
       <Footer />

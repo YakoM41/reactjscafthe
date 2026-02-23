@@ -36,7 +36,7 @@
 .logo-img {
     max-height: 80px;
     transform: scale(3);
-    margin-right: 12rem;
+    margin-right: 10rem;
 }
 
 .navActions{
@@ -85,6 +85,7 @@ a{
 .nav-account-link {
     font-weight: 500;
     transition: color 0.2s ease;
+    font-family: "Playfair Display", sans-serif;
 }
 
 .nav-account-link:hover {
@@ -100,6 +101,15 @@ a{
 
 .search-form {
     margin-right: 10px;
+    position: absolute;
+    /* On le place juste à gauche de l'icône loupe */
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%); /* Centre le champ verticalement par rapport à la loupe */
+    margin-right: 10px; /* Petit espace entre le champ et le bouton */
+
+    /* Pour l'animation d'ouverture (optionnel mais recommandé) */
+    z-index: 50;
 }
 
 .search-input {

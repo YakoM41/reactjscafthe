@@ -344,26 +344,50 @@ const MyAccount = () => {
                 {user?.addresses && user.addresses.length > 0 ? (
                   user.addresses.map((addr, index) => (
                     <div key={index} className="address-item">
-                      <p><strong>{addr.nom}</strong></p>
-                      <p>{addr.rue}</p>
-                      <p>{addr.codePostal} {addr.ville}</p>
+                      <p>
+                        <strong>{addr.nom}</strong>
+                      </p>
+                      <p>{addr.Adresse}</p>
+                      <p>
+                        {addr.CP} {addr.Ville}
+                      </p>
                       <p>{addr.pays}</p>
                       <div className="address-actions">
-                        <button onClick={() => handleEditAddressClick(index)} className="btn-text">Modifier</button>
-                        <button onClick={() => handleDeleteAddress(index)} className="btn-text delete">Supprimer</button>
+                        <button
+                          onClick={() => handleEditAddressClick(index)}
+                          className="btn-text"
+                        >
+                          Modifier
+                        </button>
+                        <button
+                          onClick={() => handleDeleteAddress(index)}
+                          className="btn-text delete"
+                        >
+                          Supprimer
+                        </button>
                       </div>
                     </div>
                   ))
                 ) : (
                   <p>Aucune adresse.</p>
                 )}
-                <button onClick={handleAddAddressClick} className="btn-primary-small full-width">+ Ajouter une adresse</button>
+                <button
+                  onClick={handleAddAddressClick}
+                  className="btn-primary-small full-width"
+                >
+                  + Ajouter une adresse
+                </button>
               </div>
             ) : (
               // Add/Edit Form
-              <form onSubmit={handleAddressSubmit} className="edit-profile-form">
-                 <div className="form-group">
-                  <label htmlFor="addressNom">Nom de l'adresse (ex: Maison)</label>
+              <form
+                onSubmit={handleAddressSubmit}
+                className="edit-profile-form"
+              >
+                <div className="form-group">
+                  <label htmlFor="addressNom">
+                    Nom de l'adresse (ex: Maison)
+                  </label>
                   <input
                     type="text"
                     id="addressNom"
@@ -385,28 +409,28 @@ const MyAccount = () => {
                   />
                 </div>
                 <div className="row-group">
-                    <div className="form-group half">
-                      <label htmlFor="codePostal">Code Postal</label>
-                      <input
-                        type="text"
-                        id="codePostal"
-                        name="codePostal"
-                        value={addressFormData.codePostal}
-                        onChange={handleAddressChange}
-                        required
-                      />
-                    </div>
-                    <div className="form-group half">
-                      <label htmlFor="ville">Ville</label>
-                      <input
-                        type="text"
-                        id="ville"
-                        name="ville"
-                        value={addressFormData.ville}
-                        onChange={handleAddressChange}
-                        required
-                      />
-                    </div>
+                  <div className="form-group half">
+                    <label htmlFor="codePostal">Code Postal</label>
+                    <input
+                      type="text"
+                      id="codePostal"
+                      name="codePostal"
+                      value={addressFormData.codePostal}
+                      onChange={handleAddressChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-group half">
+                    <label htmlFor="ville">Ville</label>
+                    <input
+                      type="text"
+                      id="ville"
+                      name="ville"
+                      value={addressFormData.ville}
+                      onChange={handleAddressChange}
+                      required
+                    />
+                  </div>
                 </div>
                 <div className="form-group">
                   <label htmlFor="pays">Pays</label>
@@ -420,19 +444,34 @@ const MyAccount = () => {
                   />
                 </div>
                 <div className="form-actions">
-                  <button type="submit" className="btn-primary-small">Enregistrer</button>
-                  <button type="button" onClick={handleCancelAddressForm} className="btn-secondary-small">Annuler</button>
+                  <button type="submit" className="btn-primary-small">
+                    Enregistrer
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCancelAddressForm}
+                    className="btn-secondary-small"
+                  >
+                    Annuler
+                  </button>
                 </div>
               </form>
             )}
           </div>
           <div className="account-card-footer">
             {!isManagingAddresses ? (
-                <button onClick={handleManageAddresses} className="btn-secondary">Gérer mes adresses</button>
+              <button onClick={handleManageAddresses} className="btn-secondary">
+                Gérer mes adresses
+              </button>
             ) : (
-                editingAddressId === null && (
-                    <button onClick={handleCloseManageAddresses} className="btn-secondary">Retour</button>
-                )
+              editingAddressId === null && (
+                <button
+                  onClick={handleCloseManageAddresses}
+                  className="btn-secondary"
+                >
+                  Retour
+                </button>
+              )
             )}
           </div>
         </div>

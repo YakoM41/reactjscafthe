@@ -76,17 +76,13 @@ function ForgotPassword() {
           {errorMsg && <div className="error-msg">{errorMsg}</div>}
           {message && <div className="success-msg">{message}</div>}
 
-          <button
-            type="submit"
-            className="auth-button"
-            disabled={isLoading}
-          >
+          <button type="submit" className="auth-button" disabled={isLoading}>
             {isLoading ? "Envoi en cours..." : "Envoyer le lien"}
           </button>
 
           <div className="auth-link">
             <p>
-              <Link to="/login">Retour à la connexion</Link>
+              <Link to="/connexion">Retour à la connexion</Link>
             </p>
           </div>
         </form>

@@ -42,7 +42,7 @@ function Footer() {
           <h4>À Propos</h4>
           <ul>
             <li>
-              <Link to="/about" className="footer-style">
+              <Link to="/notre-histoire" className="footer-style">
                 Notre Histoire
               </Link>
             </li>
@@ -90,22 +90,25 @@ function Footer() {
           <p>© {new Date().getFullYear()} CafThé. Tous droits réservés.</p>
           <ul>
             <li>
-              <Link to="/legal-notice" className="footer-style">
+              <Link to="/mentions-legales" className="footer-style">
                 Mentions Légales
               </Link>
             </li>
             <li>
-              <Link to="/privacy-policy" className="footer-style">
+              <Link to="/politique-de-confidentialite" className="footer-style">
                 Politique de Confidentialité
               </Link>
             </li>
             <li>
-              <Link to="/terms-of-sale" className="footer-style">
+              <Link
+                to="/conditions-generales-de-vente"
+                className="footer-style"
+              >
                 CGV
               </Link>
             </li>
             <li>
-              <Link to="/sitemap" className="footer-style">
+              <Link to="/plan-du-site" className="footer-style">
                 Plan du site
               </Link>
             </li>

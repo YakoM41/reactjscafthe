@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext.jsx";
 import { useCart } from "../contexts/CartContext.jsx";
 import "../styles/header.css";
+import { useWishlist } from "../contexts/WishlistContext.jsx";
 
 // Import assets
 import logoImg from "../assets/images/Caf’Thé (5) (1).png";
@@ -11,7 +12,6 @@ import loginIcon from "../assets/images/icons/ButtonLog.svg";
 import favIcon from "../assets/images/icons/ButtonFav.svg";
 import cartIcon from "../assets/images/icons/ButtonCart.svg";
 
-
 function Header({ isTransparent }) {
   const { user, isAuthenticated, logout } = useContext(AuthContext);
   const { cartItems } = useCart();
@@ -19,6 +19,7 @@ function Header({ isTransparent }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { wishlistItems } = useWishlist();
 
   const handleLogout = () => {
     logout();
@@ -58,26 +59,38 @@ function Header({ isTransparent }) {
       </button>
 
       <div className={`navLink ${isMobileMenuOpen ? "mobile-menu-open" : ""}`}>
-        <Link to="/produits" className="navThe" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link
+          to="/produits?category=thes"
+          className="navThe"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
           Thés
         </Link>
-        <Link to="/produits" className="navCaf" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link
+          to="/produits?category=cafes"
+          className="navCaf"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
           Cafés
         </Link>
-        <Link to="/produits" className="navAcc" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link
+          to="/produits?category=accessoires"
+          className="navAcc"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
           Accessoires
         </Link>
-        <Link to="/about" className="navHist" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link
+          to="/notre-histoire"
+          className="navHist"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
           Notre histoire
         </Link>
       </div>
 
       <Link to="/" className="navbar-brand">
-        <img
-          src={logoImg}
-          alt="CafThé - Accueil"
-          className="logo-img"
-        />
+        <img src={logoImg} alt="CafThé - Accueil" className="logo-img" />
       </Link>
 
       <div className="navActions">
@@ -95,11 +108,7 @@ function Header({ isTransparent }) {
             </form>
           )}
           <button onClick={toggleSearch} className="navIcons search-btn">
-            <img
-              src={searchIcon}
-              className="nav-icon-img"
-              alt="Recherche"
-            />
+            <img src={searchIcon} className="nav-icon-img" alt="Recherche" />
           </button>
         </div>
 
@@ -109,7 +118,7 @@ function Header({ isTransparent }) {
               Bonjour, {user.prenom}
             </Link>
           ) : (
-            <Link to="/login" className="navIcons">
+            <Link to="/connexion" className="navIcons">
               <img
                 src={loginIcon}
                 className="nav-icon-img"
@@ -119,20 +128,15 @@ function Header({ isTransparent }) {
           )}
         </div>
 
-        <Link to="/wishlist" className="navIcons">
-          <img
-            src={favIcon}
-            className="nav-icon-img"
-            alt="Favoris"
-          />
+        <Link to="/favoris" className="navIcons cart-icon-container">
+          <img src={favIcon} className="nav-icon-img" alt="Favoris" />
+          {wishlistItems.length > 0 && (
+            <span className="cart-badge">{wishlistItems.length}</span>
+          )}
         </Link>
 
         <Link to="/panier" className="navIcons cart-icon-container">
-          <img
-            src={cartIcon}
-            className="nav-icon-img"
-            alt="Panier"
-          />
+          <img src={cartIcon} className="nav-icon-img" alt="Panier" />
           {totalItemsInCart > 0 && (
             <span className="cart-badge">{totalItemsInCart}</span>
           )}

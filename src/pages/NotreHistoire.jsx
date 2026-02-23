@@ -138,29 +138,6 @@ const NotreHistoire = () => {
         </div>
       </section>
 
-      {/* Section 5: Certifications */}
-      <section className="nh-certifications">
-        <h2>Nos Certifications</h2>
-        <div className="nh-cert-logos">
-          <div className="nh-cert-card-log">
-            <div className="nh-cert-icon">🌿</div>
-            <p>AB - Agriculture Biologique</p>
-          </div>
-          <div className="nh-cert-card-log">
-            <div className="nh-cert-icon">🤝</div>
-            <p>Fair Trade Certified</p>
-          </div>
-          <div className="nh-cert-card-log">
-            <div className="nh-cert-icon">🌳</div>
-            <p>Rainforest Alliance</p>
-          </div>
-          <div className="nh-cert-card-log">
-            <div className="nh-cert-icon">🏆</div>
-            <p>B Corporation</p>
-          </div>
-        </div>
-      </section>
-
       {/* Section 6: CTA */}
       <section
         className="nh-cta"

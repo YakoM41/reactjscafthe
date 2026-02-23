@@ -15,38 +15,51 @@ const ProductCard = ({ product }) => {
     e.target.src = "https://placehold.co/600x400";
   };
 
-  // Stop propagation to prevent link navigation when adding to cart
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleAddToCart = () => {
+    // La magie opère : plus besoin de preventDefault ou stopPropagation
+    // car ce bouton n'est plus à l'intérieur d'un lien !
     addToCart(product);
   };
 
+  // On stocke l'URL dans une variable pour ne pas se répéter
+  const productUrl = `/produit/${product.Référence}`;
+
   return (
-    <Link to={`/produit/${product.Référence}`} className="product-card-link">
-      <div className="product-card">
-        <div className="product-card-image-container">
+    <div className="product-card">
+      <div className="product-card-image-container">
+        {/* Le premier lien englobe uniquement l'image.
+            On ajoute tabIndex="-1" pour éviter que les utilisateurs
+            naviguant au clavier ne tabulent deux fois de suite sur le même produit. */}
+        <Link to={productUrl} tabIndex="-1" aria-hidden="true">
           <img
             src={imageUrl}
             alt={product.Nom_produit}
             className="product-card-image"
             onError={handleImageError}
           />
-        </div>
-        <div className="product-card-info">
-          <h3 className="product-card-name">{product.Nom_produit}</h3>
-          <p className="product-card-category">{product.Catégorie}</p>
-          {/* A short description could be added here if available */}
-          {/* <p className="product-card-description">{product.Description}</p> */}
-        </div>
-        <div className="product-card-footer">
-          <p className="product-card-price">{product.Prix_TTC}€</p>
-          <button onClick={handleAddToCart} className="product-card-button">
-            Ajouter au panier
-          </button>
+        </Link>
+
+        {/* Le composant WishlistButton flotte désormais librement et légalement */}
+        <div className="product-card-wishlist">
+          <WishlistButton product={product} />
         </div>
       </div>
-    </Link>
+
+      <div className="product-card-info">
+        {/* Le lien principal pour le SEO et l'accessibilité est placé sur le titre */}
+        <Link to={productUrl} className="product-card-title-link">
+          <h3 className="product-card-name">{product.Nom_produit}</h3>
+        </Link>
+        <p className="product-card-category">{product.Catégorie}</p>
+      </div>
+
+      <div className="product-card-footer">
+        <p className="product-card-price">{product.Prix_TTC}€</p>
+        <button onClick={handleAddToCart} className="product-card-button">
+          Ajouter au panier
+        </button>
+      </div>
+    </div>
   );
 };
 
