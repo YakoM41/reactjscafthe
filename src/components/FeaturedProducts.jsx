@@ -133,7 +133,7 @@ const FeaturedProducts = () => {
         </div>
 
         <div className="section-cta">
-          <Link to="/produits" className="btn-primary">
+          <Link to="/produits" className="btn-engage">
             Voir tous nos produits
           </Link>
         </div>

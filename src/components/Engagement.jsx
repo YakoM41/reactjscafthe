@@ -43,20 +43,7 @@ const Engagement = () => {
           nos décisions. Commerce équitable, agriculture biologique et respect
           des savoir-faire ancestraux sont au cœur de notre philosophie.
         </p>
-        <Link
-          to="/about"
-          style={{
-            display: 'inline-block',
-            padding: "1rem 2rem",
-            border: "1px solid #A0795F",
-            backgroundColor: "transparent",
-            color: "#A0795F",
-            cursor: "pointer",
-            marginTop: "1rem",
-            textDecoration: "none",
-            fontFamily: 'sans-serif'
-          }}
-        >
+        <Link className="btn-engage" to="/about">
           Découvrir notre histoire
         </Link>
       </div>

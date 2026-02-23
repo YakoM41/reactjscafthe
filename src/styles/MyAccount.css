@@ -153,25 +153,8 @@
     text-decoration: underline;
 }
 
-.btn-secondary {
-    display: inline-block;
-    padding: 0.8rem 1.8rem;
-    background-color: transparent;
-    color: #3A4A35;
-    border: 1px solid #3A4A35;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-}
 
-.btn-secondary:hover {
-    background-color: #3A4A35;
-    color: #fff;
-}
+
 
 .account-logout-section {
     text-align: center;

@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import heroImage from "/src/assets/images/HeroSection.png";
 import "../styles/Home.css";
 
 const Hero = () => {
@@ -33,19 +32,7 @@ const Hero = () => {
         Découvrez notre sélection exclusive de thés et cafés d'exception,
         cultivés avec passion et respect de la terre
       </p>
-      <Link
-        to="/produits"
-        style={{
-          padding: "1rem 2rem",
-          border: "1px solid white",
-          backgroundColor: "transparent",
-          color: "white",
-          cursor: "pointer",
-          marginTop: "1rem",
-          textDecoration: "none",
-          zIndex: 10,
-        }}
-      >
+      <Link to="/produits" className="btn-hero">
         Explorer la Collection
       </Link>
     </section>

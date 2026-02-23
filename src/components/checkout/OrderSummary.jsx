@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext.jsx";
 
 const OrderSummary = () => {
-  const { subtotal, shippingCost, total } = useContext(CartContext);
+  const { subtotal, shippingCost, total, deliveryMethod } = useContext(CartContext);
 
   const formatPrice = (price) => {
     return price.toFixed(2).replace(".", ",") + "€";
@@ -17,14 +17,15 @@ const OrderSummary = () => {
       </div>
       <div className="summary-row">
         <span>Livraison</span>
-        <span>{formatPrice(shippingCost)}</span>
+        <span>{shippingCost === 0 ? 'Gratuit' : formatPrice(shippingCost)}</span>
       </div>
       <div className="summary-total">
         <span>Total</span>
         <span>{formatPrice(total)}</span>
       </div>
       <div className="summary-info">
-        <p>✓ Livraison gratuite à partir de 50€</p>
+        {deliveryMethod === 'pickup' && <p>✓ Retrait en magasin gratuit</p>}
+        {deliveryMethod === 'home' && <p>✓ Livraison gratuite à partir de 50€</p>}
         <p>✓ Paiement 100% sécurisé</p>
       </div>
     </div>

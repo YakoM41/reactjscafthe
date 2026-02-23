@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
-import registerImage from "../assets/images/Maquettes/Connexion2.png";
+import authImage from "../assets/images/ImgAuth.png";
 
 function Register() {
     const navigate = useNavigate();
@@ -61,7 +61,7 @@ function Register() {
       <div className="auth-container">
         <div className="auth-image-section">
           <img
-            src="src/assets/images/ImgAuth.png"
+            src={authImage}
             alt="Illustration"
             className="auth-image"
           />

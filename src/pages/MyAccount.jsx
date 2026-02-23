@@ -4,8 +4,31 @@ import { useAuth } from "../contexts/AuthContext";
 import "../styles/MyAccount.css";
 
 const MyAccount = () => {
-  const { user, logout, updateUser } = useAuth();
+  const { user, logout, updateUser, loading } = useAuth();
   const navigate = useNavigate();
+
+  if (loading) {
+    return (
+      <div className="account-container">
+        <div className="loading-state">
+          <p>Chargement de votre compte...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="account-container">
+        <div className="error-state">
+          <p>Vous devez être connecté pour accéder à cette page.</p>
+          <Link to="/login" className="btn-primary">
+            Se connecter
+          </Link>
+        </div>
+      </div>
+    );
+  }
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     prenom: "",

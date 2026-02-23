@@ -110,3 +110,196 @@
     color: #3A4A35;
     margin-bottom: 1rem;
 }
+
+/* Info Page Header */
+.info-page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.info-page-header h1 {
+    font-size: 2.5rem;
+    color: #3A4A35;
+    margin-bottom: 0.5rem;
+}
+
+.info-page-header p {
+    font-size: 1.1rem;
+    color: #A0795F;
+}
+
+/* Info Page Content */
+.info-page-content {
+    background-color: #FBF9F3;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+/* Loyalty Program Styles */
+.loyalty-info {
+    margin-bottom: 2rem;
+}
+
+.loyalty-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #3A4A35;
+    margin-bottom: 1.5rem;
+}
+
+.loyalty-section {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #A0795F;
+}
+
+.loyalty-section h3 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.loyalty-section p {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.loyalty-section ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0.5rem;
+}
+
+.loyalty-section li {
+    padding: 0.3rem 0;
+    color: #666;
+}
+
+.loyalty-section li:before {
+    content: "✓ ";
+    color: #A0795F;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.loyalty-cta {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* Legal Pages Styles */
+.legal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.legal-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #3A4A35;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.legal-content h2:first-child {
+    margin-top: 0;
+}
+
+.legal-content p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+/* Loading and Error States */
+.loading-state,
+.error-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    background-color: #FBF9F3;
+    border-radius: 8px;
+}
+
+.loading-state p,
+.error-state p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.error-state .btn-primary {
+    display: inline-block;
+    text-decoration: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .info-page-container {
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
+
+    .info-page-header h1 {
+        font-size: 2rem;
+    }
+
+    .loyalty-section,
+    .legal-content {
+        padding: 1rem;
+    }
+
+    .loyalty-section h3 {
+        font-size: 1.1rem;
+    }
+
+    .legal-content h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .info-page-container {
+        margin: 1rem auto;
+        padding: 1rem;
+    }
+
+    .info-page-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .info-page-header p {
+        font-size: 1rem;
+    }
+
+    .empty-state {
+        padding: 2rem 1rem;
+    }
+
+    .loyalty-section {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .legal-content {
+        padding: 1rem;
+    }
+
+    .legal-content h2 {
+        font-size: 1.3rem;
+        margin-top: 1.5rem;
+    }
+}

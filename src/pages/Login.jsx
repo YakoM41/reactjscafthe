@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext.jsx";
 import "../styles/Auth.css";
-import loginImage from "../assets/images/Maquettes/Connexion1.png";
+import authImage from "../assets/images/ImgAuth.png";
 
 function Login() {
   const { login } = useContext(AuthContext);
@@ -46,7 +46,7 @@ function Login() {
     <div className="auth-container">
       <div className="auth-image-section">
         <img
-          src="src/assets/images/ImgAuth.png"
+          src={authImage}
           alt="Illustration"
           className="auth-image"
         />
@@ -88,7 +88,13 @@ function Login() {
 
           <div className="auth-link">
             <p>
-              Vous n’avez pas de compte ?{" "}
+              <Link to="/forgot-password">Mot de passe oublié ?</Link>
+            </p>
+          </div>
+
+          <div className="auth-link">
+            <p>
+              Vous n'avez pas de compte ?{" "}
               <Link to="/register">Inscrivez-vous</Link>
             </p>
           </div>

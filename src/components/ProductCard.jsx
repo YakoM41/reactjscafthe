@@ -1,7 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useCart } from '../contexts/CartContext';
-import '../styles/ProductList.css'; 
+import React from "react";
+import { Link } from "react-router-dom";
+import { useCart } from "../contexts/CartContext";
+import WishlistButton from "./WishlistButton";
+import "../styles/ProductList.css";
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
@@ -16,7 +17,7 @@ const ProductCard = ({ product }) => {
 
   // Stop propagation to prevent link navigation when adding to cart
   const handleAddToCart = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     e.stopPropagation();
     addToCart(product);
   };
@@ -25,11 +26,16 @@ const ProductCard = ({ product }) => {
     <Link to={`/produit/${product.Référence}`} className="product-card-link">
       <div className="product-card">
         <div className="product-card-image-container">
-          <img src={imageUrl} alt={product.Nom_produit} className="product-card-image" onError={handleImageError} />
+          <img
+            src={imageUrl}
+            alt={product.Nom_produit}
+            className="product-card-image"
+            onError={handleImageError}
+          />
         </div>
         <div className="product-card-info">
           <h3 className="product-card-name">{product.Nom_produit}</h3>
-          <p className="product-card-category">{product.Categorie}</p>
+          <p className="product-card-category">{product.Catégorie}</p>
           {/* A short description could be added here if available */}
           {/* <p className="product-card-description">{product.Description}</p> */}
         </div>

@@ -7,11 +7,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer-main">
         <div className="footer-brand">
-          <h3
-            style={{ fontFamily: "serif", fontWeight: 600, fontSize: "2rem" }}
-          >
-            CafThé
-          </h3>
+          <h3>CafThé</h3>
           <p>
             " L'art du thé et du café depuis 1892. De la terre à la tasse. "
           </p>
@@ -20,16 +16,23 @@ function Footer() {
           <h4>Boutique</h4>
           <ul>
             <li>
-              <Link to="/produits?category=thes">Thés</Link>
+              <Link to="/produits?category=thes" className="footer-style">
+                Thés
+              </Link>
             </li>
             <li>
-              <Link to="/produits?category=cafes">Cafés</Link>
+              <Link to="/produits?category=cafes" className="footer-style">
+                Cafés
+              </Link>
             </li>
             <li>
               <Link to="/produits?category=accessoires">Accessoires</Link>
             </li>
             <li>
-              <Link to="/produits?category=coffrets-cadeaux">
+              <Link
+                to="/produits?category=coffrets-cadeaux"
+                className="footer-style"
+              >
                 Coffrets Cadeaux
               </Link>
             </li>
@@ -39,10 +42,34 @@ function Footer() {
           <h4>À Propos</h4>
           <ul>
             <li>
-              <Link to="/about">Notre Histoire</Link>
+              <Link to="/about" className="footer-style">
+                Notre Histoire
+              </Link>
             </li>
             <li>
-              <Link to="/contact">Nous contacter</Link>
+              <Link to="/contact" className="footer-style">
+                Nous contacter
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className="footer-links">
+          <h4>Aide & Service</h4>
+          <ul>
+            <li>
+              <Link to="/service-client" className="footer-style">
+                Service Client
+              </Link>
+            </li>
+            <li>
+              <Link to="/faq" className="footer-style">
+                FAQ
+              </Link>
+            </li>
+            <li>
+              <Link to="/politique-de-retour" className="footer-style">
+                Politique de Retour
+              </Link>
             </li>
           </ul>
         </div>
@@ -59,18 +86,31 @@ function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} CafThé. Tous droits réservés.</p>
-        <ul>
-          <li>
-            <Link to="/legal-notice">Mentions Légales</Link>
-          </li>
-          <li>
-            <Link to="/privacy-policy">Politique de Confidentialité</Link>
-          </li>
-          <li>
-            <Link to="/terms-of-sale">CGV</Link>
-          </li>
-        </ul>
+        <div className="footer-bottom-left">
+          <p>© {new Date().getFullYear()} CafThé. Tous droits réservés.</p>
+          <ul>
+            <li>
+              <Link to="/legal-notice" className="footer-style">
+                Mentions Légales
+              </Link>
+            </li>
+            <li>
+              <Link to="/privacy-policy" className="footer-style">
+                Politique de Confidentialité
+              </Link>
+            </li>
+            <li>
+              <Link to="/terms-of-sale" className="footer-style">
+                CGV
+              </Link>
+            </li>
+            <li>
+              <Link to="/sitemap" className="footer-style">
+                Plan du site
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </footer>
   );

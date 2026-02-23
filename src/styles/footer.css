@@ -3,6 +3,11 @@
     color: white;
     padding: 3rem 2rem;
 }
+.footer h3{
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 2rem;
+}
 
 .footer-main {
     display: flex;
@@ -27,6 +32,7 @@
     margin-bottom: 1rem;
     text-transform: uppercase;
     color: #A0795F;
+    font-family: 'Playfair Display', serif;
 }
 
 .footer ul {
@@ -41,6 +47,11 @@
 .footer a {
     color: white;
     text-decoration: none;
+
+}
+
+.footer-style{
+    font-family: "Mukta", sans-serif;
 }
 
 .footer a:hover {
@@ -70,4 +81,55 @@
 .footer-bottom ul {
     display: flex;
     gap: 1.5rem;
+}
+
+/* Responsive Styles for Footer */
+@media (max-width: 768px) {
+    .footer {
+        padding: 2rem 1.5rem;
+    }
+
+    .footer-main {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .footer-brand,
+    .footer-links,
+    .footer-contact {
+        min-width: 100%;
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-bottom ul {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 1.5rem 1rem;
+    }
+
+    .footer h4 {
+        font-size: 1rem;
+    }
+
+    .footer ul li {
+        font-size: 0.9rem;
+    }
+
+    .social-icons a {
+        font-size: 1.3rem;
+    }
 }

@@ -17,6 +17,7 @@ function Header({ isTransparent }) {
   const { cartItems } = useCart();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -46,17 +47,27 @@ function Header({ isTransparent }) {
 
   return (
     <nav className={`navBar ${isTransparent ? "navBar-transparent" : ""}`}>
-      <div className="navLink">
-        <Link to="/produits" className="navThe">
+      <button
+        className="mobile-menu-toggle"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        aria-label="Menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div className={`navLink ${isMobileMenuOpen ? "mobile-menu-open" : ""}`}>
+        <Link to="/produits" className="navThe" onClick={() => setIsMobileMenuOpen(false)}>
           Thés
         </Link>
-        <Link to="/produits" className="navCaf">
+        <Link to="/produits" className="navCaf" onClick={() => setIsMobileMenuOpen(false)}>
           Cafés
         </Link>
-        <Link to="/produits" className="navAcc">
+        <Link to="/produits" className="navAcc" onClick={() => setIsMobileMenuOpen(false)}>
           Accessoires
         </Link>
-        <Link to="/about" className="navHist">
+        <Link to="/about" className="navHist" onClick={() => setIsMobileMenuOpen(false)}>
           Notre histoire
         </Link>
       </div>

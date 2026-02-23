@@ -22,6 +22,8 @@ function ProductList() {
   const [activeOrigine, setActiveOrigine] = useState("Tous");
   const [activePrice, setActivePrice] = useState("Tous les prix");
   const [sortOrder, setSortOrder] = useState("default"); // 'default', 'asc', 'desc'
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 12;
 
   useEffect(() => {
     if (categoryFromUrl) {
@@ -33,8 +35,8 @@ function ProductList() {
       };
       setActiveCategory(categoryMap[categoryFromUrl] || "Tous les produits");
     } else if (searchQuery) {
-        // Reset category if searching
-        setActiveCategory("Tous les produits");
+      // Reset category if searching
+      setActiveCategory("Tous les produits");
     }
   }, [categoryFromUrl, searchQuery]);
 
@@ -98,9 +100,10 @@ function ProductList() {
     // Search Filter
     if (searchQuery) {
       const lowerQuery = searchQuery.toLowerCase();
-      filteredProducts = filteredProducts.filter((p) =>
-        p.Nom_produit.toLowerCase().includes(lowerQuery) ||
-        (p.Description && p.Description.toLowerCase().includes(lowerQuery))
+      filteredProducts = filteredProducts.filter(
+        (p) =>
+          p.Nom_produit.toLowerCase().includes(lowerQuery) ||
+          (p.Description && p.Description.toLowerCase().includes(lowerQuery)),
       );
     }
 
@@ -126,7 +129,31 @@ function ProductList() {
       );
     }
 
-    // The logic for filtering by origin and price is not implemented yet, as there is no data for it in the products
+    // Origin Filter
+    if (activeOrigine !== "Tous") {
+      filteredProducts = filteredProducts.filter(
+        (p) => p.Origines && p.Origines.includes(activeOrigine),
+      );
+    }
+
+    // Price Filter
+    if (activePrice !== "Tous les prix") {
+      filteredProducts = filteredProducts.filter((p) => {
+        const price = p.Prix_TTC;
+        switch (activePrice) {
+          case "Moins de 30€":
+            return price < 30;
+          case "30€ - 60€":
+            return price >= 30 && price <= 60;
+          case "60€ - 100€":
+            return price > 60 && price <= 100;
+          case "Plus de 100€":
+            return price > 100;
+          default:
+            return true;
+        }
+      });
+    }
 
     const sortedProducts = [...filteredProducts];
     if (sortOrder === "asc") {
@@ -136,7 +163,35 @@ function ProductList() {
     }
 
     return sortedProducts;
-  }, [produits, activeCategory, activeOrigine, activePrice, sortOrder, searchQuery]);
+  }, [
+    produits,
+    activeCategory,
+    activeOrigine,
+    activePrice,
+    sortOrder,
+    searchQuery,
+  ]);
+
+  // Pagination calculations
+  const totalPages = Math.ceil(
+    filteredAndSortedProducts.length / productsPerPage,
+  );
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredAndSortedProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct,
+  );
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeCategory, activeOrigine, activePrice, sortOrder, searchQuery]);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   if (error) {
     return (
@@ -152,18 +207,21 @@ function ProductList() {
     <div className="product-list-container">
       <div className="product-list-header">
         {searchQuery ? (
-            <>
-                <h1>Résultats de recherche</h1>
-                <p>Pour : "{searchQuery}"</p>
-                <Link to="/produits" className="reset-search-link">Voir tous les produits</Link>
-            </>
+          <>
+            <h1>Résultats de recherche</h1>
+            <p>Pour : "{searchQuery}"</p>
+            <Link to="/produits" className="reset-search-link">
+              Voir tous les produits
+            </Link>
+          </>
         ) : (
-            <>
-                <h1>Nos Collections d'Exception</h1>
-                <p>
-                  Découvrez notre sélection artisanale de thés, cafés et accessoires.
-                </p>
-            </>
+          <>
+            <h1>Nos Collections d'Exception</h1>
+            <p>
+              Découvrez notre sélection artisanale de thés, cafés et
+              accessoires.
+            </p>
+          </>
         )}
       </div>
       <div className="page-content">
@@ -238,11 +296,47 @@ function ProductList() {
               ))}
             </div>
           ) : (
-            <div className="product-grid">
-              {filteredAndSortedProducts.map((produit) => (
-                <ProductCard key={produit.Référence} product={produit} />
-              ))}
-            </div>
+            <>
+              <div className="product-grid">
+                {currentProducts.map((produit) => (
+                  <ProductCard key={produit.Référence} product={produit} />
+                ))}
+              </div>
+
+              {totalPages > 1 && (
+                <div className="pagination">
+                  <button
+                    className="pagination-button"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    Précédent
+                  </button>
+
+                  <div className="pagination-numbers">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                      (pageNum) => (
+                        <button
+                          key={pageNum}
+                          className={`pagination-number ${currentPage === pageNum ? "active" : ""}`}
+                          onClick={() => handlePageChange(pageNum)}
+                        >
+                          {pageNum}
+                        </button>
+                      ),
+                    )}
+                  </div>
+
+                  <button
+                    className="pagination-button"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    Suivant
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
