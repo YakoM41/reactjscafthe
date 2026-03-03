@@ -1,10 +1,12 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
+import { useCart } from "./CartContext"; // 1. Importer useCart
 
 export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { saveCartToServer, loadCartFromServer, clearCart, cartItems } = useCart(); // 2. Récupérer les fonctions
 
   // Verifie si un cookie de session valide existe
   useEffect(() => {
@@ -18,6 +20,10 @@ export function AuthProvider({ children }) {
         if (response.ok) {
           const data = await response.json();
           setUser(data.client);
+          // Charger le panier si la session est valide
+          if (data.client && data.client.id) {
+            loadCartFromServer(data.client.id);
+          }
         }
       } catch (error) {
         console.error("Erreur vérification session:", error);
@@ -31,6 +37,10 @@ export function AuthProvider({ children }) {
 
   const login = (userData) => {
     setUser(userData);
+    // 3. Charger le panier du serveur après la connexion
+    if (userData && userData.id) {
+      loadCartFromServer(userData.id);
+    }
   };
 
   const updateUser = async (updatedData) => {
@@ -62,6 +72,11 @@ export function AuthProvider({ children }) {
   };
 
   const logout = async () => {
+    // 4. Sauvegarder le panier AVANT de se déconnecter
+    if (user && user.id) {
+      await saveCartToServer(user.id, cartItems);
+    }
+    
     try {
       await fetch(`${import.meta.env.VITE_API_URL}/api/clients/logout`, {
         method: "POST",
@@ -70,7 +85,10 @@ export function AuthProvider({ children }) {
     } catch (error) {
       console.error("Erreur lors de la déconnexion:", error);
     }
+    
     setUser(null);
+    // 5. Vider le panier localement APRES la déconnexion
+    clearCart();
   };
 
   const value = {
@@ -85,4 +103,4 @@ export function AuthProvider({ children }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export const useAuth = () => React.useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);

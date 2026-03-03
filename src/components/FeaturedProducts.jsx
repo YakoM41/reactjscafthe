@@ -5,9 +5,9 @@ import "react-loading-skeleton/dist/skeleton.css";
 import "../styles/Home.css";
 
 // Import assets directly
-import MatchaImage from "../assets/images/MatchaImperialJap.png";
-import CafeImage from "../assets/images/CafeEthiopienYirga.png";
-import TheImage from "../assets/images/TheOolongTaiwan.png";
+import MatchaImage from "../assets/images/MatchaImperialJap_resultat.webp";
+import CafeImage from "../assets/images/CafeEthiopienYirga_resultat.webp";
+import TheImage from "../assets/images/TheOolongTaiwan_resultat.webp";
 
 // Placeholders si l'API ne fonctionne pas
 const fallbackProducts = [
@@ -68,9 +68,11 @@ const FeaturedProducts = () => {
   const renderSkeleton = () => (
     <div className="featured-product">
       <Skeleton height={300} width={"100%"} />
-      <Skeleton height={24} width={"80%"} style={{ marginTop: "1.5rem" }} />
-      <Skeleton height={18} width={"60%"} style={{ marginTop: "0.5rem" }} />
-      <Skeleton height={18} width={"40%"} style={{ marginTop: "1rem" }} />
+      <div className="featured-product-content">
+        <Skeleton height={24} width={"80%"} style={{ marginTop: "1.5rem" }} />
+        <Skeleton height={18} width={"60%"} style={{ marginTop: "0.5rem" }} />
+        <Skeleton height={18} width={"40%"} style={{ marginTop: "1rem" }} />
+      </div>
     </div>
   );
 
@@ -101,31 +103,45 @@ const FeaturedProducts = () => {
 
               return (
                 <div key={product.Référence} className="featured-product">
-                  <Link to={`/produit/${product.Référence}`}>
-                    <div className="featured-product-image-container">
+                  <div className="featured-product-image-container">
+                    <Link to={`/produit/${product.Référence}`}>
                       <img
                         src={imageUrl}
                         alt={product.Nom_produit}
                         className="featured-product-image"
+                        loading="lazy"
                         onError={(e) => {
                           e.target.onerror = null;
                           e.target.src = fallbackProducts[0].Images;
                         }}
                       />
-                    </div>
-                  </Link>
-                  <h3 className="featured-product-name">
-                    {product.Nom_produit}
-                  </h3>
-                  <p className="featured-product-category">
-                    {product.Categorie}
-                  </p>
-                  <Link
-                    to={`/produit/${product.Référence}`}
-                    className="featured-product-link"
-                  >
-                    Découvrir
-                  </Link>
+                    </Link>
+                  </div>
+                  <div className="featured-product-content">
+                    <h3 className="featured-product-name">
+                      {product.Nom_produit}
+                    </h3>
+                    <p className="featured-product-category">
+                      {product.Categorie}
+                    </p>
+                    {product.Description && (
+                      <p
+                        className="featured-product-description"
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            product.Description.length > 150
+                              ? product.Description.substring(0, 150) + "..."
+                              : product.Description,
+                        }}
+                      ></p>
+                    )}
+                    <Link
+                      to={`/produit/${product.Référence}`}
+                      className="featured-product-link"
+                    >
+                      Découvrir
+                    </Link>
+                  </div>
                 </div>
               );
             })

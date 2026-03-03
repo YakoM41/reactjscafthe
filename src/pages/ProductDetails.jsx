@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import { useCart } from "../contexts/CartContext";
+import SEO from "../components/SEO.jsx"; // Import SEO component
 import "../styles/ProductDetails.css";
 
 // Accordion Component
@@ -66,6 +67,15 @@ function ProductDetails() {
     }
   };
 
+  // SEO Title and Description
+  const pageTitle = produit
+    ? `${produit.Nom_produit} | CafThé`
+    : "Chargement du produit...";
+  // Crée une description courte pour le SEO en retirant les balises HTML
+  const pageDescription = produit
+    ? `${produit.Description.substring(0, 155).replace(/<[^>]*>/g, "")}...`
+    : "Découvrez nos produits de qualité supérieure.";
+
   if (isLoading) {
     return (
       <div className="product-detail-container">
@@ -109,6 +119,7 @@ function ProductDetails() {
 
   return (
     <div className="product-detail-container">
+      <SEO title={pageTitle} description={pageDescription} />
       <div className="product-image-section">
         <img
           src={imageUrl}

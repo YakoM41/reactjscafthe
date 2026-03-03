@@ -1,60 +1,95 @@
+/* --- Styles de base (inchangés) --- */
 .navBar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0rem 3rem;
     width: 100%;
-    box-sizing: border-box; /* Ensures padding is included in the width */
-    background-color: #F5F1EB; /* Default beige background */
+    box-sizing: border-box;
+    background-color: var(--bg-color-main);
+    transition: background-color 0.3s ease;
 }
 
 .navBar-transparent {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 10;
-    background: linear-gradient( rgba(245, 241, 235, 0.7), rgba(245, 241, 235, 0.15));
+    z-index: 100;
+    background: linear-gradient( rgba(245, 241, 235, 0.3), rgba(245, 241, 235, 0.01));
 }
 
 .navBar-transparent a {
-    color: black;
-    font-weight: 700;
+    color: var(--bg-color-white);
 }
 
-.navLink{
+.navLink {
     display: flex;
     gap: 30px;
     font-family: "Mukta", sans-serif;
 }
 
+/* NOUVELLE RÈGLE pour le survol */
+.navLink a {
+    transition: color 0.2s ease;
+    font-weight: 500; /* On peut définir un poids de base ici si besoin */
+    position: relative; /* Nécessaire pour le pseudo-élément */
+    text-decoration: none;
+}
+
+.navLink a:hover {
+    color: var(--color-accent);
+}
+
+/* Ajout de l'effet de soulignement animé */
+.navLink a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.navLink a:hover::after {
+    transform: scaleX(1);
+}
+
+/* CORRECTION: Cacher les icônes mobiles par défaut sur TOUS les écrans */
+.navLink .navActions-mobile {
+    display: none;
+}
+
 .navbar-brand {
     display: flex;
     justify-content: center;
-
 }
 
 .logo-img {
     max-height: 80px;
     transform: scale(3);
     margin-right: 10rem;
+    transition: transform 0.3s ease, max-height 0.3s ease;
 }
 
-.navActions{
+.navActions {
     display: flex;
     gap: 20px;
     align-items: center;
 }
 
 .nav-icon-img {
-    height: 24px; /* Or any other size that fits your design */
+    height: 24px;
     width: auto;
+    transition: height 0.3s ease;
 }
 
-
-a{
+a {
     text-decoration: none;
-    color: black;
-
+    color: var(--text-color-dark);
 }
 
 .cart-icon-container {
@@ -66,16 +101,15 @@ a{
     position: absolute;
     top: -10px;
     right: -10px;
-    background-color: #c52b2b;
-    color: white;
+    background-color: var(--color-error);
+    color: var(--bg-color-white);
     border-radius: 50%;
     padding: 0.25em 0.6em;
     font-size: 0.8rem;
     font-weight: bold;
-    border: 2px solid #F5F1EB; /* To blend with the background */
+    border: 2px solid var(--bg-color-main);
 }
 
-/* Account Section Styles */
 .accountSection {
     display: flex;
     align-items: center;
@@ -89,10 +123,9 @@ a{
 }
 
 .nav-account-link:hover {
-    color: #8B4513; /* SaddleBrown */
+    color: var(--color-accent);
 }
 
-/* Search Styles */
 .search-container {
     display: flex;
     align-items: center;
@@ -100,30 +133,34 @@ a{
 }
 
 .search-form {
-    margin-right: 10px;
     position: absolute;
-    /* On le place juste à gauche de l'icône loupe */
     right: 100%;
     top: 50%;
-    transform: translateY(-50%); /* Centre le champ verticalement par rapport à la loupe */
-    margin-right: 10px; /* Petit espace entre le champ et le bouton */
-
-    /* Pour l'animation d'ouverture (optionnel mais recommandé) */
+    transform: translateY(-50%);
+    margin-right: 10px;
     z-index: 50;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.search-container.active .search-form {
+    opacity: 1;
+    visibility: visible;
 }
 
 .search-input {
     padding: 5px 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-border);
     border-radius: 20px;
     font-size: 14px;
     outline: none;
-    width: 200px; /* Adjust width as needed */
+    width: 200px;
     transition: width 0.3s ease;
 }
 
 .search-input:focus {
-    border-color: #8B4513;
+    border-color: var(--color-accent);
 }
 
 .search-btn {
@@ -135,88 +172,185 @@ a{
     align-items: center;
 }
 
-.search-btn:focus {
-    outline: none;
-}
-
-/* Mobile Menu Toggle */
+/* --- Styles pour le menu mobile --- */
 .mobile-menu-toggle {
-    display: none;
+    display: none; /* Caché par défaut */
     flex-direction: column;
-    gap: 4px;
-    background: none;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    background: transparent;
     border: none;
     cursor: pointer;
-    padding: 8px;
-    z-index: 1001;
+    padding: 0;
+    z-index: 1001; /* Doit être au-dessus du menu */
 }
 
 .mobile-menu-toggle span {
-    width: 25px;
+    width: 30px;
     height: 3px;
-    background-color: #333;
-    transition: all 0.3s ease;
+    background-color: var(--text-color-dark);
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
 }
 
-/* Responsive Styles */
+.nav-left, .mobile-cart {
+    display: none; /* Caché par défaut sur desktop */
+}
+
+/* --- Media Queries pour le Responsive --- */
 @media (max-width: 1024px) {
     .navBar {
         padding: 1rem 1.5rem;
-        flex-wrap: wrap;
         position: relative;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .nav-left {
+        display: block; /* Affiche le conteneur de gauche */
+    }
+
+    .mobile-cart {
+        display: inline-block; /* Affiche le panier mobile */
+    }
+
+    .navActions .desktop-cart {
+        display: none; /* Cache le panier desktop */
+    }
+
+    /* Forcer le header solide sur mobile */
+    .navBar.navBar-transparent {
+        background: var(--bg-color-main);
+        position: static;
     }
 
     .mobile-menu-toggle {
         display: flex;
-        order: 1;
+        z-index: 1001; /* S'assurer qu'il est cliquable */
     }
 
     .navbar-brand {
-        order: 2;
-        margin: 0 auto;
+        /* Centrage absolu */
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
     }
 
     .logo-img {
+        transform: scale(2.5);
         margin-right: 0;
-        transform: scale(2);
-        max-height: 60px;
+        max-height: 70px;
     }
 
     .navActions {
-        order: 3;
-        gap: 10px;
+        display: flex;
+        align-items: center;
     }
 
+    /* Cacher la navigation principale et les icônes du menu */
     .navLink {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background-color: #F5F1EB;
+        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 2rem;
+        text-align: center;
+
+        position: fixed;
+        top: 0;
+        left: -100%; /* Commence en dehors de l'écran */
+        width: 100%;
+        height: 100vh;
+
+        background-color: var(--bg-color-main);
         z-index: 1000;
-        font-size: 1.5rem;
+
+        font-size: 1.8rem;
+        transition: left 0.3s ease-in-out;
+        padding-top: 80px; /* On ajoute un padding en haut pour laisser de la place */
     }
 
-    .navLink.mobile-menu-open {
+    /* Afficher les icônes dans le menu sur mobile */
+    .navLink.mobile-menu-open .navActions-mobile {
         display: flex;
+        flex-direction: row; /* Aligner horizontalement */
+        align-items: center;
+        justify-content: center; /* Centrer les icônes */
+        gap: 2.5rem; /* Espacement entre les icônes */
+        margin-top: 2rem;
+        border-top: 1px solid var(--color-border);
+        padding-top: 2rem;
+        width: 100%; /* Prendre toute la largeur */
+        position: relative; /* Pour le positionnement absolu de la recherche */
     }
 
-    .search-input {
-        width: 150px;
+    /* Augmenter la taille des icônes dans le menu mobile */
+    .navActions-mobile .nav-icon-img {
+        height: 28px; /* Taille plus grande */
     }
 
-    .accountSection {
-        gap: 0.5rem;
+    /* Cacher les icônes de la barre principale sur mobile, sauf le panier */
+    .navActions .search-container,
+    .navActions .accountSection,
+    .navActions .cart-icon-container:not(.desktop-cart) { /* Cible tous sauf le panier desktop */
+        display: none;
     }
 
+    /* Afficher le menu mobile quand la classe est présente */
+    .navLink.mobile-menu-open {
+        left: 0;
+    }
+
+    /* Cacher le message de bienvenue sur mobile */
     .nav-account-link {
-        font-size: 0.85rem;
+        display: none;
+    }
+
+    /* CORRECTION ROBUSTE pour la barre de recherche mobile */
+    .navActions-mobile .search-container {
+        position: static; /* On laisse le conteneur statique */
+    }
+
+    /* Quand la recherche est active sur mobile */
+    .navActions-mobile .search-container.active {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--bg-color-main); /* Même fond que le menu pour cacher les autres icônes */
+        z-index: 10;
+        padding-top: 2rem; /* Compenser le padding du parent */
+    }
+
+    .navActions-mobile .search-form {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin: 0;
+        opacity: 1;
+        visibility: visible;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .navActions-mobile .search-input {
+        width: 200px; /* Largeur confortable */
+        border-color: var(--color-accent);
+    }
+
+    /* Cacher le bouton loupe quand la recherche est ouverte */
+    .navActions-mobile .search-container.active .search-btn {
+        display: none;
     }
 }
 
@@ -226,31 +360,20 @@ a{
     }
 
     .logo-img {
-        transform: scale(1.5);
-        max-height: 50px;
+        transform: scale(2);
+        max-height: 60px;
     }
 
     .nav-icon-img {
-        height: 20px;
-    }
-
-    .search-input {
-        width: 120px;
-        font-size: 12px;
-        padding: 4px 8px;
-    }
-
-    .nav-account-link {
-        display: none;
+        height: 22px;
     }
 
     .navActions {
-        gap: 8px;
+        gap: 12px;
     }
 
-    .cart-badge {
-        padding: 0.2em 0.5em;
-        font-size: 0.7rem;
+    .search-input {
+        width: 150px;
     }
 }
 
@@ -260,19 +383,23 @@ a{
     }
 
     .logo-img {
-        transform: scale(1.2);
-        max-height: 40px;
+        transform: scale(1.8);
+        max-height: 50px;
     }
 
     .nav-icon-img {
-        height: 18px;
+        height: 20px;
     }
 
     .navActions {
-        gap: 6px;
+        gap: 10px;
     }
 
-    .search-form {
-        margin-right: 5px;
+    .search-container.active .search-form {
+        /* Pour éviter que la barre de recherche ne soit trop grande */
+        width: calc(100vw - 150px);
+    }
+    .search-input {
+        width: 100%;
     }
 }

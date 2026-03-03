@@ -35,6 +35,7 @@ const ProductCard = ({ product }) => {
             src={imageUrl}
             alt={product.Nom_produit}
             className="product-card-image"
+            loading="lazy"
             onError={handleImageError}
           />
         </Link>

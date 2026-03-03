@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SEO from "../components/SEO.jsx"; // Import SEO component
 import { useWishlist } from "../contexts/WishlistContext"; // 1. Import du Context
 import ProductCard from "../components/ProductCard"; // 2. Import de la carte produit
 import "../styles/InfoPages.css";
@@ -11,6 +12,7 @@ function Wishlist() {
 
   return (
     <div className="info-page-container">
+      <SEO title="Mes Favoris - CafThé" noindex={true} />
       <div className="info-page-header">
         <h1>Mes Favoris</h1>
         <p>Votre liste de produits préférés</p>

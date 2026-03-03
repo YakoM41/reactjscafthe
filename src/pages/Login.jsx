@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import SEO from "../components/SEO.jsx"; // Import SEO component
 import { AuthContext } from "../contexts/AuthContext.jsx";
 import "../styles/Auth.css";
-import authImage from "../assets/images/ImgAuth.png";
+import authImage from "../assets/images/ImgAuth_resultat.webp";
 
 function Login() {
   const { login } = useContext(AuthContext);
@@ -44,6 +45,7 @@ function Login() {
 
   return (
     <div className="auth-container">
+      <SEO title="Connexion - CafThé" noindex={true} />
       <div className="auth-image-section">
         <img src={authImage} alt="Illustration" className="auth-image" />
       </div>

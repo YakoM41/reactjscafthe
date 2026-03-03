@@ -1,58 +1,127 @@
 .hero-histoire{
-  color: #F5F0E1;
+  color: var(--bg-color-light);
 }
 
 .univers-text {
-  color: #A0795F;
+  color: var(--color-secondary);
   font-size: 20px;
 }
 
 .produits-phares{
-  color: #A0795F;
+  color: var(--color-secondary);
   font-size: 20px;
 }
 
-.hero{
-  position: relative; /* Indispensable pour que le calque reste dedans */
-  /* Ton image de fond ici */
-  background-image: url('/src/assets/images/HeroSection.png');
-  background-size: cover;
-  background-position: center;
-  height: 400px; /* Exemple de hauteur */
+/* NOUVEAUX STYLES POUR LE HERO AVEC SWIPER */
 
-  /* Pour centrer le texte par exemple */
-  display: flex;
-  align-items: flex-end; /* Texte en bas */
+.hero-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
 
-.hero::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
+.hero-swiper {
   width: 100%;
   height: 100%;
-
-  /* C'est ici que la magie opère */
-  /* "to top" = ça commence en bas */
-  /* rgba(0,0,0, 0.8) = Noir à 80% d'opacité */
-  /* transparent = La fin du dégradé */
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 30%, transparent 100%);
-
-  z-index: 1; /* Juste au-dessus de l'image */
 }
 
-/* ⚠️ TRES IMPORTANT : Le texte doit passer par-dessus le calque */
-.hero h1,
-.hero p, .hero button {
-  position: relative;
-  z-index: 2; /* Plus haut que le calque (1) */
-  color: white; /* Pour que ce soit lisible */
+.hero-slide-bg {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
 }
 
+/* Overlay sombre pour améliorer la lisibilité du texte */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%);
+  z-index: 1;
+}
 
-body{
-  margin: 0px;
+/* Conteneur du texte, positionné par-dessus le slider */
+.hero-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 10; /* Au-dessus du Swiper */
+  padding: 2rem;
+  pointer-events: none; /* Permet de cliquer à travers si besoin, mais on réactive pour le bouton */
+}
+
+.hero-title {
+  font-size: 75px; /* Légèrement réduit par rapport à 120px */
+  font-weight: bold;
+  margin-inline: 5rem;
+  margin-top: 0; /* Plus besoin de margin-top car centré par flexbox */
+  color: var(--bg-color-white);
+  font-family: "Playfair Display", serif;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+
+  /* Animation */
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.hero-subtitle {
+  font-size: 1.3rem;
+  margin: 1.5rem 0;
+  color: var(--bg-color-white);
+  max-width: 700px;
+  font-family: "Mukta", sans-serif;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+
+  /* Animation */
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.4s;
+}
+
+/* --- Styles de la ligne de séparation --- */
+.hero-separator {
+  width: 80px;
+  height: 2px;
+  background-color: var(--bg-color-white);
+  margin: 1.5rem 0;
+  opacity: 0; /* Caché au départ pour l'animation */
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.6s; /* Délai pour l'effet cascade */
+}
+
+.btn-hero {
+  pointer-events: auto; /* Réactive les clics pour le bouton */
+  font-family: "Playfair Display",sans-serif;
+  padding: 1rem 2rem;
+  border: 1px solid var(--bg-color-white);
+  background-color: rgba(245, 241, 235, 0.12);
+  color: var(--bg-color-white);
+  cursor: pointer;
+  margin-top: 1.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  /* Animation */
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.8s;
+}
+
+.btn-hero:hover {
+  background-color: var(--bg-color-white);
+  color: var(--color-primary);
 }
 
 h2 {
@@ -67,16 +136,34 @@ p{
 h1{ font-family: "Playfair Display", serif;}
 
 .engagement-text{
-  color: #A0795F;
+  color: var(--color-secondary);
+
 }
 
+.engagement-section{
+  padding-block: 10rem;
+  display: flex;
+  align-items: center;
+  background-color: #2C2419;
+}
 
+/* --- Animation d'apparition --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* Featured Products Section */
 .featured-products-section {
   padding: 6rem 2rem;
   text-align: center;
-  background-color: #FBF9F3; /* Light beige background */
+  background-color: var(--bg-color-light);
 }
 
 .container {
@@ -85,7 +172,7 @@ h1{ font-family: "Playfair Display", serif;}
 }
 
 .section-subtitle {
-  color: #A0795F; /* Muted brown */
+  color: var(--color-secondary);
   font-size: 1rem;
   font-weight: 500;
   text-transform: uppercase;
@@ -97,7 +184,7 @@ h1{ font-family: "Playfair Display", serif;}
   font-family: 'Playfair Display', serif;
   font-size: 3rem;
   font-weight: 700;
-  color: #3A4A35; /* Dark Green */
+  color: var(--color-primary);
   margin-bottom: 1rem;
 }
 
@@ -108,31 +195,13 @@ h1{ font-family: "Playfair Display", serif;}
   margin: 0 auto 4rem;
 }
 
-.btn-hero{
-  font-family: "Playfair Display",sans-serif;
-  padding: 1rem 2rem;
-  border: 1px solid white;
-  background-color: transparent;
-  color: white;
-  cursor: pointer;
-  margin-top: 1rem;
-  text-decoration: none;
-  z-index: 10;
-  transition: all 0.3s ease;
-}
-
-.btn-hero:hover{
-  background-color: white;
-  color: #3A4A35;
-}
-
 
 .btn-engage{
   display: inline-block;
   padding: 1rem 2rem;
-  border: 1px solid #A0795F;
-  background-color: transparent;
-  color: #A0795F;
+  border: 1px solid var(--color-secondary);
+  background-color: rgba(160, 121, 95, 0.10);
+  color: var(--color-secondary);
   cursor: pointer;
   margin-top: 1rem;
   text-decoration: none;
@@ -142,26 +211,64 @@ h1{ font-family: "Playfair Display", serif;}
 
 
 .btn-engage:hover{
-  background-color: #A0795F;
-  color: #fff;
+  background-color: var(--color-secondary);
+  color: var(--bg-color-white);
 
 }
 
 .featured-products-grid {
   display: grid;
-  /* Use auto-fit to create a responsive grid that wraps */
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: 1fr; /* Stack items vertically by default */
+  gap: 4rem;
   margin-bottom: 4rem;
 }
 
 .featured-product {
+  display: flex;
+  flex-direction: column; /* Stack image and text vertically on mobile */
+  align-items: center;
   text-align: center;
+  gap: 2rem;
+}
+
+/*CARD UNIVERS*/
+/* Le conteneur parent */
+.universe-card {
+  position: relative;
+}
+
+/* Le calque gradient via ::after */
+.universe-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
+  z-index: 1; /* Reste sous le texte qui a un z-index de 2 */
+  pointer-events: none; /* Permet de cliquer "à travers" le calque si besoin */
+  transition: background 0.3s ease;
+}
+
+/* Petit bonus : effet au survol */
+.universe-card:hover::after {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Effet de zoom sur l'image au survol (optionnel, pour reprendre ton style précédent) */
+.universe-image {
+  transition: transform 0.4s ease;
+}
+.universe-card:hover .universe-image {
+  transform: scale(1.05);
 }
 
 .featured-product-image-container {
   overflow: hidden;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0; /* Remove bottom margin as gap handles spacing */
+  width: 100%;
+  max-width: 500px; /* Limit image width */
 }
 
 .featured-product-image {
@@ -175,26 +282,39 @@ h1{ font-family: "Playfair Display", serif;}
   transform: scale(1.05);
 }
 
+.featured-product-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    padding: 0 2rem;
+}
+
 .featured-product-name {
   font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
-  color: #333;
+  color: var(--color-secondary);
   margin-bottom: 0.5rem;
 }
 
 .featured-product-category {
-  color: #777;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+  color: var(--text-color-light);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .featured-product-link {
   text-decoration: none;
-  color: #8B4513; /* SaddleBrown */
+  color: var(--color-accent);
   font-weight: 600;
   position: relative;
   transition: color 0.3s;
+  font-size: 1.1rem;
 }
 
 .featured-product-link::after {
@@ -204,7 +324,7 @@ h1{ font-family: "Playfair Display", serif;}
   left: 0;
   width: 100%;
   height: 1px;
-  background-color: #3A4A35;
+  background-color: var(--color-primary);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s ease;
@@ -221,9 +341,9 @@ h1{ font-family: "Playfair Display", serif;}
 .btn-primary {
   display: inline-block;
   padding: 1rem 2.5rem;
-  background-color: #3A4A35;
-  color: #fff;
-  border: 1px solid #3A4A35;
+  background-color: var(--color-primary);
+  color: var(--bg-color-white);
+  border: 1px solid var(--color-primary);
   border-radius: 4px;
   text-decoration: none;
   font-size: 1rem;
@@ -234,16 +354,84 @@ h1{ font-family: "Playfair Display", serif;}
 }
 
 .btn-primary:hover {
-  background-color: #fff;
-  color: #3A4A35;
+  background-color: var(--bg-color-white);
+  color: var(--color-primary);
+}
+
+@media (min-width: 768px) {
+  .featured-products-grid {
+    gap: 6rem;
+  }
+
+  .featured-product {
+    flex-direction: row; /* Side by side on desktop */
+    justify-content: center;
+    gap: 4rem;
+  }
+
+  .featured-product:nth-child(even) {
+    flex-direction: row-reverse; /* Reverse order for even items */
+  }
+
+  .featured-product-image-container {
+    flex: 1;
+    max-width: 50%;
+  }
+
+  .featured-product-content {
+      flex: 1;
+      max-width: 50%;
+      padding: 0;
+  }
 }
 
 @media (max-width: 992px) {
-  .featured-products-grid {
-    grid-template-columns: 1fr;
-    gap: 4rem;
-  }
   .section-title {
     font-size: 2.5rem;
   }
+}
+
+/* --- Media Queries (Mise à jour pour le nouveau Hero) --- */
+
+@media (max-width: 1024px) {
+    .hero-container {
+        height: 70vh;
+    }
+    .hero-title {
+        font-size: 70px;
+        margin-inline: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-container {
+        height: 60vh;
+    }
+    .hero-title {
+        font-size: 50px;
+        margin-inline: 1rem;
+    }
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    /* Mobile adjustments for featured products */
+    .featured-product-content {
+        align-items: center;
+        text-align: center;
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-container {
+        height: 80vh; /* Un peu plus haut sur mobile pour tout caser */
+    }
+    .hero-title {
+        font-size: 36px;
+        margin-inline: 0.5rem;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+    }
 }

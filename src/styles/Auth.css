@@ -2,7 +2,7 @@
   display: flex;
   height: 100vh;
   font-family: 'Poppins', sans-serif;
-  background-color: #F5F1EB;
+  background-color: var(--bg-color-main);
   padding-block: 2rem;
 }
 
@@ -23,7 +23,7 @@
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background-color: #F5F1EB;
+  background-color: var(--bg-color-main);
 }
 
 .auth-form {
@@ -43,7 +43,7 @@
 .auth-form p {
   text-align: center;
   margin-bottom: 2rem;
-  color: #666;
+  color: var(--text-color-medium);
 }
 
 .input-group {
@@ -54,13 +54,13 @@
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #333;
+  color: var(--text-color-dark);
 }
 
 .input-group input {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border);
   border-radius: 5px;
   font-size: 1rem;
 }
@@ -68,8 +68,8 @@
 .auth-button {
   width: 100%;
   padding: 0.75rem;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--text-color-dark);
+  color: var(--bg-color-white);
   border: none;
   border-radius: 5px;
   font-size: 1rem;
@@ -88,13 +88,13 @@
 }
 
 .auth-link a {
-  color: #000;
+  color: var(--text-color-dark);
   text-decoration: underline;
   font-weight: 500;
 }
 
 .error-msg {
-    color: red;
+    color: var(--color-error);
     text-align: center;
     margin-bottom: 1rem;
 }
@@ -171,4 +171,3 @@
     font-size: 0.95rem;
   }
 }
-

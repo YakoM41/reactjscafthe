@@ -1,9 +1,14 @@
 import React from "react";
+import SEO from "../components/SEO.jsx"; // Import SEO component
 import "../styles/LegalPages.css";
 
 function PrivacyPolicy() {
     return (
         <div className="legal-page-container">
+            <SEO 
+                title="Politique de Confidentialité - CafThé"
+                description="Découvrez comment CafThé protège vos données personnelles. Consultez notre politique de confidentialité pour en savoir plus sur la collecte, l'utilisation et la protection de vos informations."
+            />
             <h1>Politique de Confidentialité</h1>
             <p>Date d'entrée en vigueur : 15 février 2026</p>
             <p>Bienvenue sur Caf'Thé (le "Site"). Nous nous engageons à protéger votre vie privée et vos données personnelles. Cette Politique de Confidentialité explique comment nous collectons, utilisons, divulguons et protégeons vos informations lorsque vous visitez notre Site et utilisez nos services.</p>

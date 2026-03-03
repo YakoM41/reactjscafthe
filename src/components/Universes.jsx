@@ -1,7 +1,8 @@
 import React from "react";
-import thesImage from "/src/assets/images/Image (Thés).png";
-import cafesImage from "/src/assets/images/Image (Cafés).png";
-import accessoiresImage from "/src/assets/images/Image (Accessoires).png";
+import thesImage from "/src/assets/images/Image (Thés)_resultat.webp";
+import cafesImage from "/src/assets/images/Image (Cafés)_resultat.webp";
+import accessoiresImage from "/src/assets/images/Image (Accessoires)_resultat.webp";
+import { Link } from "react-router-dom";
 import "../styles/Home.css";
 
 const universes = [
@@ -9,16 +10,19 @@ const universes = [
     name: "Thés",
     image: thesImage,
     count: "24 Variétés",
+    path: "/produits?category=thes",
   },
   {
     name: "Cafés",
     image: cafesImage,
     count: "18 Origines",
+    path: "/produits?category=cafes",
   },
   {
     name: "Accessoires",
     image: accessoiresImage,
     count: "32 Pièces",
+    path: "/produits?category=accessoires",
   },
 ];
 
@@ -44,22 +48,29 @@ const Universes = () => {
         }}
       >
         {universes.map((universe, index) => (
-          <div
+          <Link
+            to={universe.path}
+            className="universe-card"
             key={index}
             style={{
+              display: "block",
+              textDecoration: "none",
               position: "relative",
               textAlign: "center",
               color: "white",
+              borderRadius: "8px",
+              overflow: "hidden",
             }}
           >
             <img
+              className="universe-image"
               src={universe.image}
               alt={universe.name}
               style={{
                 width: "100%",
                 height: "400px",
                 objectFit: "cover",
-                borderRadius: "8px",
+                display: "block",
               }}
             />
             <div
@@ -68,6 +79,7 @@ const Universes = () => {
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
+                zIndex: 2,
               }}
             >
               <p>{universe.count}</p>
@@ -75,7 +87,7 @@ const Universes = () => {
                 {universe.name}
               </h3>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

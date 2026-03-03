@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import SEO from "../components/SEO.jsx"; // Import SEO component
 import { useAuth } from "../contexts/AuthContext";
 import "../styles/MyAccount.css";
 
@@ -207,6 +208,7 @@ const MyAccount = () => {
 
   return (
     <div className="account-container">
+      <SEO title="Mon Compte - CafThé" noindex={true} />
       <div className="account-welcome-header">
         <h1>Bonjour, {user?.prenom} !</h1>
         <p>

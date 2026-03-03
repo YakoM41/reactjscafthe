@@ -26,7 +26,12 @@ function Footer() {
               </Link>
             </li>
             <li>
-              <Link to="/produits?category=accessoires">Accessoires</Link>
+              <Link
+                to="/produits?category=accessoires"
+                className="footer-style"
+              >
+                Accessoires
+              </Link>
             </li>
             <li>
               <Link

@@ -141,7 +141,7 @@
     font-weight: bold;
 }
 
-/* Forms (Shipping & Payment) */
+/* Formulaire (Shipping et Payement) */
 .form-group {
     margin-bottom: 1.5rem;
 }
@@ -226,7 +226,7 @@
     display: block;
 }
 
-/* Login Required Step */
+/* Demande de Login pdt panier */
 .login-required-step {
     display: flex;
     justify-content: center;
@@ -278,7 +278,7 @@
     margin-top: 1rem;
 }
 
-/* Delivery Method & Carrier Selection */
+/* Moyen livraison & choix adresse */
 .delivery-method-section,
 .carrier-section {
     margin-bottom: 2.5rem;
@@ -390,6 +390,10 @@
     font-style: italic;
 }
 
+/*CODE PROMO*/
+.promo-code-input{
+    margin-right: 6.8rem;
+}
 /* Responsive Styles for Checkout */
 @media (max-width: 1024px) {
     .checkout-body {

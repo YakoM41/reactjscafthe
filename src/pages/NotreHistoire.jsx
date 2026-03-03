@@ -1,14 +1,21 @@
 import React from "react";
+import SEO from "../components/SEO.jsx"; // Import SEO component
 import "../styles/notreHistoire.css";
 import "../styles/header.css";
 
 const NotreHistoire = () => {
   return (
     <div className="notre-histoire-page">
+      <SEO
+        title="Notre Histoire - L'Excellence Artisanale du Thé et Café | CafThé"
+        description="Découvrez l'histoire de CafThé, notre passion pour l'excellence depuis 1892 et notre engagement envers le commerce équitable et l'éco-responsabilité."
+      />
       {/* Section 1: Hero */}
       <section
         className="nh-hero"
-        style={{ backgroundImage: "url('src/assets/images/BrandStory.png')" }}
+        style={{
+          backgroundImage: "url('src/assets/images/BrandStory_resultat.webp')",
+        }}
       >
         <div className="nh-hero-content">
           <p className="pre-title">NOS ORIGINES</p>
@@ -72,13 +79,15 @@ const NotreHistoire = () => {
         <div
           className="nh-image-placeholder"
           style={{
-            backgroundImage: "url('src/assets/images/BrandStory2.jpg')",
+            backgroundImage:
+              "url('src/assets/images/BrandStory2_resultat.webp')",
           }}
         ></div>
         <div
           className="nh-image-placeholder"
           style={{
-            backgroundImage: "url('src/assets/images/BrandStory3.jpg')",
+            backgroundImage:
+              "url('src/assets/images/BrandStory3_resultat.webp')",
           }}
         ></div>
       </section>
@@ -141,7 +150,9 @@ const NotreHistoire = () => {
       {/* Section 6: CTA */}
       <section
         className="nh-cta"
-        style={{ backgroundImage: "url('src/assets/images/Container2.png')" }}
+        style={{
+          backgroundImage: "url('src/assets/images/Container2_resultat.webp')",
+        }}
       >
         <h2>Ensemble pour un avenir durable</h2>
         <p>

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 
 const PaymentStep = ({ onNext, onBack }) => {
   const [formData, setFormData] = useState({
-    cardNumber: '',
-    cardHolder: '',
-    expiryDate: '',
-    cvv: '',
+    cardNumber: "",
+    cardHolder: "",
+    expiryDate: "",
+    cvv: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -13,29 +13,31 @@ const PaymentStep = ({ onNext, onBack }) => {
     const newErrors = {};
 
     if (!formData.cardNumber.trim()) {
-      newErrors.cardNumber = 'Numéro de carte requis';
-    } else if (!/^\d{13,19}$/.test(formData.cardNumber.replace(/\s/g, ''))) {
-      newErrors.cardNumber = 'Numéro de carte invalide';
+      newErrors.cardNumber = "Numéro de carte requis";
+    } else if (!/^\d{13,19}$/.test(formData.cardNumber.replace(/\s/g, ""))) {
+      // .test() permet de vérifier que les saisies correspondent exactement au format attendu.
+      newErrors.cardNumber = "Numéro de carte invalide";
     }
 
     if (!formData.cardHolder.trim()) {
-      newErrors.cardHolder = 'Nom du titulaire requis';
+      newErrors.cardHolder = "Nom du titulaire requis";
     }
 
     if (!formData.expiryDate.trim()) {
-      newErrors.expiryDate = 'Date d\'expiration requise';
+      newErrors.expiryDate = "Date d'expiration requise";
     } else if (!/^\d{2}\/\d{2}$/.test(formData.expiryDate)) {
-      newErrors.expiryDate = 'Format invalide (MM/AA)';
+      newErrors.expiryDate = "Format invalide (MM/AA)";
     }
 
     if (!formData.cvv.trim()) {
-      newErrors.cvv = 'CVV requis';
+      newErrors.cvv = "CVV requis";
     } else if (!/^\d{3,4}$/.test(formData.cvv)) {
-      newErrors.cvv = 'CVV invalide (3-4 chiffres)';
+      newErrors.cvv = "CVV invalide (3-4 chiffres)";
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+    //Au lieu de faire un long if/else, on compte simplement combien de propriétés d'erreur on a créée. S'il y en a 0, le formulaire est valide (true).
   };
 
   const handleChange = (e) => {
@@ -43,43 +45,47 @@ const PaymentStep = ({ onNext, onBack }) => {
     let formattedValue = value;
 
     // Format card number with spaces
-    if (name === 'cardNumber') {
-      formattedValue = value.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
+    if (name === "cardNumber") {
+      formattedValue = value
+        .replace(/\s/g, "")
+        .replace(/(\d{4})/g, "$1 ") //On retire tous les espaces et on force un espace tous les 4 chiffres.
+        .trim();
     }
 
-    // Format expiry date
-    if (name === 'expiryDate') {
-      formattedValue = value.replace(/\D/g, '');
+    // Format expiration date
+    if (name === "expiryDate") {
+      formattedValue = value.replace(/\D/g, "");
       if (formattedValue.length >= 2) {
-        formattedValue = formattedValue.slice(0, 2) + '/' + formattedValue.slice(2, 4);
+        formattedValue =
+          formattedValue.slice(0, 2) + "/" + formattedValue.slice(2, 4); //insère automatiquement le / de la date d'expiration.
       }
     }
 
-    // Only allow digits for CVV
-    if (name === 'cvv') {
-      formattedValue = value.replace(/\D/g, '').slice(0, 4);
+    // Accepte uniquement des chiffres pour le CVV et Date
+    if (name === "cvv") {
+      formattedValue = value.replace(/\D/g, "").slice(0, 4);
     }
 
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: formattedValue
+      [name]: formattedValue,
     }));
 
-    // Clear error for this field
+    // Nettoie les erreurs pour ce champ
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: ''
+        [name]: "",
       }));
     }
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); //indispensable pour empêcher la page de se recharger et de perdre toutes ses données
     if (validateForm()) {
-      // In a real application, this would send data to a secure payment gateway
-      // NEVER store or send card data directly to your backend
-      console.log('Payment data would be sent to payment gateway');
+      // Dans une application réelle, cela enverrait des données à une passerelle de paiement sécurisée.
+      // NE JAMAIS stocker ni envoyer de données de carte directement à votre système.
+      console.log("Payment data would be sent to payment gateway");
       onNext();
     }
   };
@@ -93,56 +99,64 @@ const PaymentStep = ({ onNext, onBack }) => {
       </div>
       <form className="payment-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="cardNumber">Numéro de carte</label>
-          <input 
-            type="text" 
-            id="cardNumber" 
+          <label htmlFor="cardNumber">Numéro de carte</label>{" "}
+          {/* permet à un utilisateur de cliquer sur le texte "Numéro de carte" pour focaliser le champ,
+           indispensable pour les lecteurs d'écran utilisés par les personnes malvoyantes*/}
+          <input
+            type="text"
+            id="cardNumber"
             name="cardNumber"
-            placeholder="1234 5678 9012 3456" 
+            placeholder="1234 5678 9012 3456"
             value={formData.cardNumber}
             onChange={handleChange}
             maxLength="19"
             required
           />
-          {errors.cardNumber && <span className="error-text">{errors.cardNumber}</span>}
+          {errors.cardNumber && (
+            <span className="error-text">{errors.cardNumber}</span>
+          )}
         </div>
 
         <div className="form-group">
           <label htmlFor="cardHolder">Nom du titulaire</label>
-          <input 
-            type="text" 
-            id="cardHolder" 
+          <input
+            type="text"
+            id="cardHolder"
             name="cardHolder"
             placeholder="Jean Dupont"
             value={formData.cardHolder}
             onChange={handleChange}
             required
           />
-          {errors.cardHolder && <span className="error-text">{errors.cardHolder}</span>}
+          {errors.cardHolder && (
+            <span className="error-text">{errors.cardHolder}</span>
+          )}
         </div>
 
         <div className="form-row">
           <div className="form-group">
             <label htmlFor="expiryDate">Date d'expiration</label>
-            <input 
-              type="text" 
-              id="expiryDate" 
+            <input
+              type="text"
+              id="expiryDate"
               name="expiryDate"
-              placeholder="MM/AA" 
+              placeholder="MM/AA"
               value={formData.expiryDate}
               onChange={handleChange}
               maxLength="5"
               required
             />
-            {errors.expiryDate && <span className="error-text">{errors.expiryDate}</span>}
+            {errors.expiryDate && (
+              <span className="error-text">{errors.expiryDate}</span>
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="cvv">CVV</label>
-            <input 
-              type="text" 
-              id="cvv" 
+            <input
+              type="text"
+              id="cvv"
               name="cvv"
-              placeholder="123" 
+              placeholder="123"
               value={formData.cvv}
               onChange={handleChange}
               maxLength="4"
@@ -153,7 +167,10 @@ const PaymentStep = ({ onNext, onBack }) => {
         </div>
 
         <div className="payment-notice">
-          <p>⚠️ Vos données bancaires sont traitées de manière sécurisée et ne sont jamais stockées sur nos serveurs.</p>
+          <p>
+            ⚠️ Vos données bancaires sont traitées de manière sécurisée et ne
+            sont jamais stockées sur nos serveurs.
+          </p>
         </div>
 
         <div className="step-actions">

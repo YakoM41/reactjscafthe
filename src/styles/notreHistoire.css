@@ -4,9 +4,7 @@
     padding-top: 0;
 }
 
-section {
-    padding: 4rem 2rem;
-}
+
 
 /* Section 1: Hero */
 .nh-hero {
@@ -105,6 +103,7 @@ section {
 /* Section 4: Eco-responsabilité */
 .nh-eco {
     background-color: #FBF9F3;
+    padding-block: 7rem;
 }
 .nh-eco h2 {
     font-size: 3rem;
@@ -175,6 +174,7 @@ section {
 }
 .nh-cta button {
 display: block;
+    font-family: "Playfair Display",sans-serif;
     justify-items: center;
     padding: 1rem 2rem;
     border: 1px solid white;
@@ -183,5 +183,103 @@ display: block;
     cursor: pointer;
     margin-top: 1.5rem;
     font-size: 1rem;
+
+    /* Animation */
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.8s;
 }
 
+.nh-cta button:hover{
+    background-color: white;
+    color: #3A4A35;
+}
+
+/* --- Media Queries pour la page Notre Histoire --- */
+
+@media (max-width: 1024px) {
+    .nh-hero-content {
+        margin-right: 0; /* Centrer le contenu */
+        padding-inline: 2rem;
+        text-align: center;
+    }
+
+    .nh-hero h1 {
+        font-size: 3.5rem;
+    }
+
+    .nh-vision {
+        flex-direction: column;
+        gap: 2rem;
+        padding-block: 4rem;
+    }
+
+    .nh-vision-title h2,
+    .nh-eco h2 {
+        font-size: 2.5rem;
+        padding-inline: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    section {
+        padding: 3rem 1.5rem;
+    }
+
+    .nh-hero {
+        height: auto;
+        min-height: 80vh;
+    }
+
+    .nh-hero-content {
+        padding-top: 100px;
+    }
+
+    .nh-hero h1 {
+        font-size: 2.8rem;
+    }
+
+    .nh-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    .nh-stats h2 {
+        font-size: 2rem;
+    }
+
+    .nh-vision-title h2,
+    .nh-eco h2,
+    .nh-cta h2 {
+        font-size: 2.2rem;
+    }
+
+    .nh-image-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    section {
+        padding: 2rem 1rem;
+    }
+
+    .nh-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .nh-vision-title h2,
+    .nh-eco h2,
+    .nh-cta h2 {
+        font-size: 1.8rem;
+    }
+
+    .nh-quote {
+        font-size: 1rem;
+    }
+
+    .nh-card {
+        width: 100%;
+    }
+}

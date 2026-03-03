@@ -1,40 +1,60 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-fade";
+
 import "../styles/Home.css";
 
+// Import images
+import heroImg1 from "../assets/images/HeroSection_resultat.webp";
+import heroImg2 from "../assets/images/CuilleresT.webp";
+import heroImg3 from "../assets/images/TasseurCaf.webp";
+
 const Hero = () => {
+  const images = [heroImg1, heroImg2, heroImg3];
+
   return (
-    <section
-      className="hero"
-      style={{
-        height: "100vh",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "white",
-        textAlign: "center",
-      }}
-    >
-      <h1
-        style={{
-          fontSize: "120px",
-          fontWeight: "bold",
-          marginInline: "5rem",
-          marginTop: "8rem",
+    <section className="hero-container">
+      <Swiper
+        modules={[Autoplay, EffectFade]}
+        effect="fade"
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
         }}
+        loop={true}
+        className="hero-swiper"
       >
-        Une Expérience Artisanale
-      </h1>
-      <p style={{ fontSize: "1.2rem", margin: "1rem 0" }}>
-        Découvrez notre sélection exclusive de thés et cafés d'exception,
-        cultivés avec passion et respect de la terre
-      </p>
-      <Link to="/produits" className="btn-hero">
-        Explorer la Collection
-      </Link>
+        {images.map((img, index) => (
+          <SwiperSlide key={index}>
+            <img src={img} loading={index === 0 ? "eager" : "lazy"} style={{display: 'none'}} alt="" />
+            <div
+              className="hero-slide-bg"
+              style={{ backgroundImage: `url(${img})` }}
+            />
+            {/* Overlay sombre intégré au slide pour s'assurer qu'il couvre l'image */}
+            <div className="hero-overlay"></div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      <div className="hero-content">
+        <h1 className="hero-title">
+          L'excellence en héritage, le goût en partage
+        </h1>
+        <p className="hero-subtitle">
+          Découvrez notre sélection exclusive de thés et cafés d'exception,
+          cultivés avec passion et respect de la terre
+        </p>
+        <div className="hero-separator"></div>
+        <Link to="/produits" className="btn-hero">
+          Explorer la Collection
+        </Link>
+      </div>
     </section>
   );
 };

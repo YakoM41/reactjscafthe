@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import SEO from "../components/SEO.jsx"; // Import SEO component
 import "../styles/Auth.css";
 
 function ForgotPassword() {
@@ -46,6 +47,7 @@ function ForgotPassword() {
 
   return (
     <div className="auth-container">
+      <SEO title="Mot de passe oublié - CafThé" noindex={true} />
       <div className="auth-image-section">
         <img
           src="src/assets/images/ImgAuth.png"

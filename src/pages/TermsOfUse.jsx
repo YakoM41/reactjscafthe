@@ -1,9 +1,14 @@
 import React from 'react';
+import SEO from '../components/SEO.jsx'; // Import SEO component
 import '../styles/InfoPages.css';
 
 function TermsOfUse() {
   return (
     <div className="info-page-container">
+      <SEO 
+        title="Conditions d'Utilisation - CafThé"
+        description="Consultez les conditions d'utilisation du site CafThé. Apprenez-en plus sur l'utilisation du site, la propriété intellectuelle et la limitation de responsabilité."
+      />
       <div className="info-page-header">
         <h1>Conditions d'Utilisation</h1>
       </div>

@@ -1,9 +1,14 @@
 import React from "react";
+import SEO from "../components/SEO.jsx"; // Import SEO component
 import "../styles/LegalPages.css";
 
 function LegalNotice() {
     return (
         <div className="legal-page-container">
+            <SEO 
+                title="Mentions Légales - CafThé"
+                description="Consultez les mentions légales de CafThé, incluant les informations sur l'éditeur du site, l'hébergeur, la propriété intellectuelle et plus encore."
+            />
             <h1>Mentions Légales</h1>
             <p>Conformément aux dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance en l'économie numérique, il est précisé aux utilisateurs du site Caf'Thé l'identité des différents intervenants dans le cadre de sa réalisation et de son suivi.</p>
 

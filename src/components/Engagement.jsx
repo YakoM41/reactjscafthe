@@ -4,23 +4,24 @@ import "../styles/Home.css";
 
 const Engagement = () => {
   return (
-    <section
-      style={{
-        display: "flex",
-        alignItems: "center",
-        padding: "4rem 2rem",
-        backgroundColor: "#2C2419",
-      }}
-    >
+    <section className="engagement-section" style={{}}>
       <div style={{ flex: 1 }}>
         <img
-          src="/src/assets/images/NotreHistoireSection.png"
+          src="/src/assets/images/Gemini_Generated_Image_wbv4ivwbv4ivwbv4 (1).webp"
           alt="Moulin à café"
-          style={{ width: "100%", borderRadius: "8px" }}
+          style={{ width: "110%", borderRadius: "8px" }}
         />
       </div>
-      <div style={{ flex: 1, paddingLeft: "2rem" }}>
-        <p className="engagement-text"> NOTRE HISTOIRE</p>
+      <div style={{ flex: 1, paddingLeft: "7rem" }}>
+        <p
+          className="engagement-text"
+          style={{
+            fontWeight: "bold",
+          }}
+        >
+          {" "}
+          NOTRE HISTOIRE
+        </p>
         <h2
           className="hero-histoire"
           style={{

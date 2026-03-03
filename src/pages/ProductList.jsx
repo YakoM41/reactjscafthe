@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import ProductCard from "../components/ProductCard.jsx";
+import SEO from "../components/SEO.jsx"; // Import SEO component
 import "../styles/ProductList.css";
 
 function useQuery() {
@@ -24,6 +25,11 @@ function ProductList() {
   const [sortOrder, setSortOrder] = useState("default"); // 'default', 'asc', 'desc'
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 12;
+  const [openAccordion, setOpenAccordion] = useState(null); // État pour l'accordéon
+
+  const toggleAccordion = (section) => {
+    setOpenAccordion(openAccordion === section ? null : section);
+  };
 
   useEffect(() => {
     if (categoryFromUrl) {
@@ -72,7 +78,7 @@ function ProductList() {
     { name: "Thé", count: 6 },
     { name: "Café", count: 6 },
     { name: "Accessoire", count: 6 },
-    { name: "Coffrets Cadeaux", count: 4 },
+    { name: "Coffrets Cadeaux" },
   ];
 
   const origines = [
@@ -183,7 +189,7 @@ function ProductList() {
     indexOfLastProduct,
   );
 
-  // Reset to page 1 when filters change
+  // Reset à page 1 quand changement de filtre
   useEffect(() => {
     setCurrentPage(1);
   }, [activeCategory, activeOrigine, activePrice, sortOrder, searchQuery]);
@@ -192,6 +198,20 @@ function ProductList() {
     setCurrentPage(pageNumber);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  // Titre dynamique pour le SEO
+  const pageTitle = useMemo(() => {
+    if (searchQuery) {
+      return `Résultats de recherche pour "${searchQuery}" - CafThé`;
+    }
+    if (activeCategory && activeCategory !== "Tous les produits") {
+      return `${activeCategory} - Notre Sélection | CafThé`;
+    }
+    return "Nos Thés, Cafés et Accessoires d'Exception | CafThé";
+  }, [searchQuery, activeCategory]);
+
+  const pageDescription =
+    "Explorez notre collection de thés fins, cafés de spécialité et accessoires uniques. Trouvez le produit parfait pour chaque moment.";
 
   if (error) {
     return (
@@ -205,6 +225,7 @@ function ProductList() {
 
   return (
     <div className="product-list-container">
+      <SEO title={pageTitle} description={pageDescription} />
       <div className="product-list-header">
         {searchQuery ? (
           <>
@@ -227,41 +248,58 @@ function ProductList() {
       <div className="page-content">
         <div className="sidebar">
           <div className="filter-section">
-            <h4>Collections</h4>
-            {collections.map((collection) => (
-              <button
-                key={collection.name}
-                className={`filter-button ${activeCategory === collection.name ? "active" : ""}`}
-                onClick={() => setActiveCategory(collection.name)}
-              >
-                <span>{collection.name}</span>
-                <span>{collection.count}</span>
-              </button>
-            ))}
+            <button className="accordion-toggle" onClick={() => toggleAccordion('collections')}>
+              <h4>Collections</h4>
+              <span>{openAccordion === 'collections' ? '-' : '+'}</span>
+            </button>
+            <div className={`accordion-content ${openAccordion === 'collections' ? 'open' : ''}`}>
+              {collections.map((collection) => (
+                <button
+                  key={collection.name}
+                  className={`filter-button ${activeCategory === collection.name ? "active" : ""}`}
+                  onClick={() => setActiveCategory(collection.name)}
+                >
+                  <span>{collection.name}</span>
+                  <span>{collection.count}</span>
+                </button>
+              ))}
+            </div>
           </div>
+
           <div className="filter-section">
-            <h4>Origine</h4>
-            {origines.map((origine) => (
-              <button
-                key={origine}
-                className={`filter-button ${activeOrigine === origine ? "active" : ""}`}
-                onClick={() => setActiveOrigine(origine)}
-              >
-                {origine}
-              </button>
-            ))}
+            <button className="accordion-toggle" onClick={() => toggleAccordion('origine')}>
+              <h4>Origine</h4>
+              <span>{openAccordion === 'origine' ? '-' : '+'}</span>
+            </button>
+            <div className={`accordion-content ${openAccordion === 'origine' ? 'open' : ''}`}>
+              {origines.map((origine) => (
+                <button
+                  key={origine}
+                  className={`filter-button ${activeOrigine === origine ? "active" : ""}`}
+                  onClick={() => setActiveOrigine(origine)}
+                >
+                  {origine}
+                </button>
+              ))}
+            </div>
           </div>
+
           <div className="filter-section">
-            <h4>Prix</h4>
-            {prices.map((price) => (
-              <button
-                key={price}
-                className={`filter-button ${activePrice === price ? "active" : ""}`}
-                onClick={() => setActivePrice(price)}
-              >
-                {price}
-              </button>
-            ))}
+            <button className="accordion-toggle" onClick={() => toggleAccordion('prix')}>
+              <h4>Prix</h4>
+              <span>{openAccordion === 'prix' ? '-' : '+'}</span>
+            </button>
+            <div className={`accordion-content ${openAccordion === 'prix' ? 'open' : ''}`}>
+              {prices.map((price) => (
+                <button
+                  key={price}
+                  className={`filter-button ${activePrice === price ? "active" : ""}`}
+                  onClick={() => setActivePrice(price)}
+                >
+                  {price}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
         <div className="product-grid-container">

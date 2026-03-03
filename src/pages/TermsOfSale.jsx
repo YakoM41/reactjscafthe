@@ -1,9 +1,14 @@
 import React from "react";
+import SEO from "../components/SEO.jsx"; // Import SEO component
 import "../styles/LegalPages.css";
 
 function TermsOfSale() {
     return (
         <div className="legal-page-container">
+            <SEO 
+                title="Conditions Générales de Vente - CafThé"
+                description="Consultez les conditions générales de vente de CafThé. Informations sur les commandes, les prix, le paiement, la livraison, le droit de rétractation et plus encore."
+            />
             <h1>Conditions Générales de Vente (CGV)</h1>
 
             <h2>1. Identification du Vendeur</h2>

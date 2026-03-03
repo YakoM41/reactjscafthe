@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import SEO from "../components/SEO.jsx"; // Import SEO component
 import "../styles/Auth.css";
-import authImage from "../assets/images/ImgAuth.png";
+import authImage from "../assets/images/ImgAuth_resultat.webp";
 
 function Register() {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ function Register() {
           body: JSON.stringify({
             Nom: nom,
             Prenom: prenom,
-            Email: email,
+            email: email,
             Mot_de_passe: motDePasse,
           }),
         },
@@ -59,6 +60,7 @@ function Register() {
 
   return (
     <div className="auth-container">
+      <SEO title="Inscription - CafThé" noindex={true} />
       <div className="auth-image-section">
         <img src={authImage} alt="Illustration" className="auth-image" />
       </div>

@@ -30,8 +30,8 @@ import TermsOfUse from "./pages/TermsOfUse.jsx";
 
 function App() {
   return (
-    <AuthProvider>
-      <CartProvider>
+    <CartProvider>
+      <AuthProvider>
         <WishlistProvider>
           <BrowserRouter>
             <Routes>
@@ -91,8 +91,8 @@ function App() {
             </Routes>
           </BrowserRouter>
         </WishlistProvider>
-      </CartProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </CartProvider>
   );
 }
 

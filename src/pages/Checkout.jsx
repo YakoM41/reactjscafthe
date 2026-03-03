@@ -1,6 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from "react"; //C'est la mémoire interne du composant qui définit l'étape en cours.
 import { Link } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
+import SEO from "../components/SEO.jsx"; // Import SEO component
+import { AuthContext } from "../contexts/AuthContext"; // Ecoute l'etat global de l'application et récupère la variable isAuthenticated (via le useContext) pour savoir si l'utilisateur est connecté ou pas
 import Stepper from "../components/checkout/Stepper";
 import OrderSummary from "../components/checkout/OrderSummary";
 import CartStep from "../components/checkout/CartStep";
@@ -14,11 +15,12 @@ const Checkout = () => {
   const [currentStep, setCurrentStep] = useState("cart"); // 'cart', 'shipping', 'payment', 'confirmation'
 
   const goToNextStep = () => {
+    //fction qui fait avancer l'user.
     if (currentStep === "cart") {
       if (!isAuthenticated) {
-        setCurrentStep("login-required");
+        setCurrentStep("login-required"); // Si on est sur "cart" et que l'utilisateur n'est pas connecté (!isAuthenticated), on force le passage à l'étape "login-required".
       } else {
-        setCurrentStep("shipping");
+        setCurrentStep("shipping"); // Si on est sur "cart" et connecté, on passe à "shipping"
       }
     } else if (currentStep === "shipping") setCurrentStep("payment");
     else if (currentStep === "payment") setCurrentStep("confirmation");
@@ -30,10 +32,13 @@ const Checkout = () => {
   };
 
   const renderStep = () => {
-    switch (currentStep) {
+    // Utilise une instruction switch pour déterminer quel composant enfant afficher en fonction de la valeur de currentStep.
+    switch (
+      currentStep // switch évite d'enchaîner des dizaines de conditions if/else
+    ) {
       case "cart":
         return <CartStep onNext={goToNextStep} />;
-      case "login-required":
+      case "login-required": // le code renvoie directement du HTML/JSX avec des liens vers tes pages de connexion/inscription via le composant <Link> de React Router.
         return (
           <div className="login-required-step">
             <div className="login-required-content">
@@ -69,9 +74,13 @@ const Checkout = () => {
 
   return (
     <div className="checkout-container">
+      <SEO title="Paiement - CafThé" noindex={true} />
       <div className="checkout-header">
         <h3>CafThé</h3>
-        <Stepper currentStep={currentStep} />
+        <Stepper currentStep={currentStep} />{" "}
+        {/*Le Stepper (la barre de
+        progression visuelle en haut) pour surligner l'étape
+        active.*/}
       </div>
       <div className="checkout-body">
         <div className="checkout-main">{renderStep()}</div>
@@ -84,3 +93,13 @@ const Checkout = () => {
 };
 
 export default Checkout;
+
+// L'utilisateur clique sur le bouton "Valider mon panier" à l'intérieur du composant enfant CartStep.
+//
+// Ce bouton déclenche la prop onNext.
+//
+// Cela exécute la fonction goToNextStep du parent Checkout.
+//
+// Le parent met à jour son état (setCurrentStep).
+//
+// Le parent se re-rend, la fonction switch change de composant, et l'interface affiche l'étape suivante.

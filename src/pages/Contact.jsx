@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SEO from "../components/SEO.jsx"; // Import SEO component
 import "../styles/InfoPages.css";
 import { Link } from "react-router-dom";
 
@@ -38,6 +39,10 @@ const Contact = () => {
 
   return (
     <div className="info-page-container">
+      <SEO
+        title="Contactez-Nous - Service Client | CafThé"
+        description="Contactez l'équipe de CafThé pour toute question ou suggestion. Remplissez notre formulaire ou contactez-nous par email, téléphone ou courrier."
+      />
       <h1>Nous contacter</h1>
       <p>
         Une question ? Une suggestion ? N'hésitez pas à nous écrire via le
