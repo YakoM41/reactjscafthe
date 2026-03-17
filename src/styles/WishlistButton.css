@@ -17,21 +17,21 @@
   height: 40px;
   border-radius: 50%;
   background-color: #f5f5f5;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   font-size: 1.2rem;
   color: #999;
 }
 
 .wishlist-icon:hover {
   background-color: #ffe0e0;
-  border-color: #ff6b6b;
-  color: #ff6b6b;
+  border-color: var(--color-error);
+  color: var(--color-error);
 }
 
 .wishlist-icon.active {
   background-color: #ffe0e0;
-  border-color: #ff6b6b;
-  color: #ff6b6b;
+  border-color: var(--color-error);
+  color: var(--color-error);
 }
 
 .wishlist-icon .heart-icon {
@@ -42,9 +42,9 @@
 /* Text Variant */
 .wishlist-text {
   padding: 0.8rem 1.5rem;
-  border: 1px solid #A0795F;
+  border: 1px solid var(--color-secondary);
   border-radius: 4px;
-  color: #A0795F;
+  color: var(--color-secondary);
   font-size: 0.95rem;
   font-weight: 500;
   background-color: transparent;
@@ -52,14 +52,14 @@
 }
 
 .wishlist-text:hover {
-  background-color: #FBF9F3;
-  border-color: #A0795F;
+  background-color: var(--bg-color-light);
+  border-color: var(--color-secondary);
 }
 
 .wishlist-text.active {
   background-color: #ffe0e0;
-  border-color: #ff6b6b;
-  color: #ff6b6b;
+  border-color: var(--color-error);
+  color: var(--color-error);
 }
 
 /* Product Card Wishlist Button */

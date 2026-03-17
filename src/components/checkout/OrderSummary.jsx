@@ -1,35 +1,45 @@
-import React, { useContext, useState } from "react";
-import { useCart } from "../../contexts/CartContext.jsx"; // Using useCart hook
+import React, { useState } from "react";
+import { useCart } from "../../contexts/CartContext.jsx";
 
+// On affiche le résumé de la commande sur le côté
 const OrderSummary = () => {
+  // On récupère toutes les données et fonctions nécessaires du CartContext
   const {
     subtotal,
     shippingCost,
-    discount, // Added discount
+    discount,
     total,
     deliveryMethod,
-    applyPromoCode, // Added applyPromoCode function
-    activePromo, // Added activePromo state
-    promoError, // Added promoError state
-  } = useCart(); // Using useCart hook
+    applyPromoCode,
+    activePromo,
+    promoError,
+  } = useCart();
 
+  // État local pour stocker la valeur de l'input du code promo
   const [promoCodeInput, setPromoCodeInput] = useState("");
 
+  // Fonction pour formater les prix.
   const formatPrice = (price) => {
     return price.toFixed(2).replace(".", ",") + "€";
   };
 
+  // Fonction appelée quand on clique sur "Appliquer".
   const handleApplyPromo = () => {
+    // On utilise la fonction du contexte pour vérifier le code.
     applyPromoCode(promoCodeInput);
   };
 
   return (
     <div className="order-summary">
       <h3>Récapitulatif</h3>
+
+      {/* Affiche le sous-total */}
       <div className="summary-row">
         <span>Sous-total</span>
         <span>{formatPrice(subtotal)}</span>
       </div>
+
+      {/* Affiche les frais de livraison */}
       <div className="summary-row">
         <span>Livraison</span>
         <span>
@@ -37,7 +47,7 @@ const OrderSummary = () => {
         </span>
       </div>
 
-      {/* Promo Code Input Section */}
+      {/* Section pour entrer un code promo */}
       <div className="promo-code-section">
         <input
           type="text"
@@ -49,7 +59,9 @@ const OrderSummary = () => {
         <button onClick={handleApplyPromo} className="promo-code-button">
           Appliquer
         </button>
+        {/* Affiche un message d'erreur si le code est invalide */}
         {promoError && <p className="promo-error-message">{promoError}</p>}
+        {/* Affiche un message de succès si le code est valide */}
         {activePromo && (
           <p className="promo-success-message">
             Code "{activePromo.code}" appliqué !
@@ -57,6 +69,7 @@ const OrderSummary = () => {
         )}
       </div>
 
+      {/* Si une remise est appliquée, on affiche la ligne correspondante. */}
       {discount > 0 && (
         <div className="summary-row discount-row">
           <span>Remise ({activePromo?.code})</span>
@@ -64,10 +77,13 @@ const OrderSummary = () => {
         </div>
       )}
 
+      {/* Affiche le total final */}
       <div className="summary-total">
         <span>Total</span>
         <span>{formatPrice(total)}</span>
       </div>
+
+      {/* Informations supplémentaires */}
       <div className="summary-info">
         {deliveryMethod === "pickup" && <p>✓ Retrait en magasin gratuit</p>}
         {deliveryMethod === "home" && (

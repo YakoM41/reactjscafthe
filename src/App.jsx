@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Layout from "./layout/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
@@ -90,6 +92,17 @@ function App() {
               </Route>
             </Routes>
           </BrowserRouter>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </WishlistProvider>
       </AuthProvider>
     </CartProvider>

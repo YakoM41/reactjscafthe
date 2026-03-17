@@ -14,7 +14,7 @@ const NotreHistoire = () => {
       <section
         className="nh-hero"
         style={{
-          backgroundImage: "url('src/assets/images/BrandStory_resultat.webp')",
+          backgroundImage: "url('/images/BrandStory_resultat.webp')",
         }}
       >
         <div className="nh-hero-content">
@@ -80,14 +80,14 @@ const NotreHistoire = () => {
           className="nh-image-placeholder"
           style={{
             backgroundImage:
-              "url('src/assets/images/BrandStory2_resultat.webp')",
+              "url('/images/BrandStory2_resultat.webp')",
           }}
         ></div>
         <div
           className="nh-image-placeholder"
           style={{
             backgroundImage:
-              "url('src/assets/images/BrandStory3_resultat.webp')",
+              "url('/images/BrandStory3_resultat.webp')",
           }}
         ></div>
       </section>
@@ -104,7 +104,7 @@ const NotreHistoire = () => {
           <div className="nh-card">
             <div className="nh-card-icon">
               <img
-                src="src/assets/images/icons/BrandStory1.svg"
+                src="/images/icons/BrandStory1.svg"
                 alt="fair trade"
               />
             </div>
@@ -117,7 +117,7 @@ const NotreHistoire = () => {
           <div className="nh-card">
             <div className="nh-card-icon">
               <img
-                src="src/assets/images/icons/BrandStory2.svg"
+                src="/images/icons/BrandStory2.svg"
                 alt="Commerce equitable "
               />
             </div>
@@ -127,7 +127,7 @@ const NotreHistoire = () => {
           <div className="nh-card">
             <div className="nh-card-icon">
               <img
-                src="src/assets/images/icons/BrandStory3.svg"
+                src="/images/icons/BrandStory3.svg"
                 alt="Empreinte Carbone"
               />
             </div>
@@ -137,7 +137,7 @@ const NotreHistoire = () => {
           <div className="nh-card">
             <div className="nh-card-icon">
               <img
-                src="src/assets/images/icons/BrandStory4.svg"
+                src="/images/icons/BrandStory4.svg"
                 alt="Impacte social"
               />
             </div>
@@ -151,7 +151,7 @@ const NotreHistoire = () => {
       <section
         className="nh-cta"
         style={{
-          backgroundImage: "url('src/assets/images/Container2_resultat.webp')",
+          backgroundImage: "url('/images/Container2_resultat.webp')",
         }}
       >
         <h2>Ensemble pour un avenir durable</h2>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SEO from "../components/SEO.jsx"; // Import SEO component
+import SEO from "../components/SEO.jsx";
 import "../styles/InfoPages.css";
 import { Link } from "react-router-dom";
 
@@ -10,30 +10,36 @@ const Contact = () => {
     subject: "",
     message: "",
   });
-  const [submitStatus, setSubmitStatus] = useState(null);
-  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [formState, setFormState] = useState({
+    status: null, // 'sending', 'success', 'error'
+    termsAccepted: false,
+  });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    const { name, value, type, checked } = e.target;
+    if (type === "checkbox") {
+      setFormState(prev => ({ ...prev, termsAccepted: checked }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulate form submission
-    setSubmitStatus("sending");
+    if (!formState.termsAccepted) {
+      alert("Veuillez accepter les conditions d'utilisation.");
+      return;
+    }
+    
+    setFormState(prev => ({ ...prev, status: 'sending' }));
+
+    // Ici, on enverrait les données à une API
+    // fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) })
+    //   .then(...)
 
     setTimeout(() => {
-      setSubmitStatus("success");
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
+      setFormState(prev => ({ ...prev, status: 'success' }));
+      setFormData({ name: "", email: "", subject: "", message: "" });
     }, 1500);
   };
 
@@ -44,94 +50,44 @@ const Contact = () => {
         description="Contactez l'équipe de CafThé pour toute question ou suggestion. Remplissez notre formulaire ou contactez-nous par email, téléphone ou courrier."
       />
       <h1>Nous contacter</h1>
-      <p>
-        Une question ? Une suggestion ? N'hésitez pas à nous écrire via le
-        formulaire ci-dessous.
-      </p>
+      <p>Une question ? Une suggestion ? N'hésitez pas à nous écrire via le formulaire ci-dessous.</p>
 
-      {submitStatus === "success" && (
-        <div
-          className="status-message success"
-          style={{ marginBottom: "2rem" }}
-        >
-          Votre message a bien été envoyé ! Nous vous répondrons dans les plus
-          brefs délais.
+      {formState.status === "success" && (
+        <div className="status-message success" style={{ marginBottom: "2rem" }}>
+          Votre message a bien été envoyé ! Nous vous répondrons dans les plus brefs délais.
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="contact-form">
         <div className="form-group">
           <label htmlFor="name">Nom complet</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            className="form-input"
-          />
+          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required className="form-input" />
         </div>
 
         <div className="form-group">
           <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="form-input"
-          />
+          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required className="form-input" />
         </div>
 
         <div className="form-group">
           <label htmlFor="subject">Sujet</label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            value={formData.subject}
-            onChange={handleChange}
-            required
-            className="form-input"
-          />
+          <input type="text" id="subject" name="subject" value={formData.subject} onChange={handleChange} required className="form-input" />
         </div>
 
         <div className="form-group">
           <label htmlFor="message">Message</label>
-          <textarea
-            id="message"
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            required
-            className="form-textarea"
-            rows="5"
-          ></textarea>
+          <textarea id="message" name="message" value={formData.message} onChange={handleChange} required className="form-textarea" rows="5"></textarea>
         </div>
+        
         <div className="checkbox-group">
-          <input
-            id="terms"
-            type="checkbox"
-            checked={termsAccepted}
-            onChange={(e) => setTermsAccepted(e.target.checked)}
-          />
+          <input id="terms" type="checkbox" checked={formState.termsAccepted} onChange={handleChange} />
           <label htmlFor="terms">
-            J'ai lu et accepté les{" "}
-            <Link to="/conditions-utilisation" className="use-condition">
-              conditions d'utilisations.
-            </Link>
+            J'ai lu et accepté les <Link to="/conditions-utilisation" className="use-condition">conditions d'utilisations.</Link>
           </label>
         </div>
 
-        <button
-          type="submit"
-          className="btn-primary"
-          disabled={submitStatus === "sending"}
-        >
-          {submitStatus === "sending" ? "Envoi en cours..." : "Envoyer"}
+        <button type="submit" className="btn-primary" disabled={formState.status === 'sending' || !formState.termsAccepted}>
+          {formState.status === 'sending' ? "Envoi en cours..." : "Envoyer"}
         </button>
       </form>
 

@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 
-// Import Swiper styles
+// Import de Swiper
 import "swiper/css";
 import "swiper/css/effect-fade";
 
 import "../styles/Home.css";
 
-// Import images
-import heroImg1 from "../assets/images/HeroSection_resultat.webp";
-import heroImg2 from "../assets/images/CuilleresT.webp";
-import heroImg3 from "../assets/images/TasseurCaf.webp";
+// Import des images
+import heroImg1 from "/images/HeroSection_resultat.webp";
+import heroImg2 from "/images/CuilleresT.webp";
+import heroImg3 from "/images/TasseurCaf.webp";
 
 const Hero = () => {
   const images = [heroImg1, heroImg2, heroImg3];
@@ -31,7 +31,12 @@ const Hero = () => {
       >
         {images.map((img, index) => (
           <SwiperSlide key={index}>
-            <img src={img} loading={index === 0 ? "eager" : "lazy"} style={{display: 'none'}} alt="" />
+            <img
+              src={img}
+              loading={index === 0 ? "eager" : "lazy"}
+              style={{ display: "none" }}
+              alt=""
+            />
             <div
               className="hero-slide-bg"
               style={{ backgroundImage: `url(${img})` }}

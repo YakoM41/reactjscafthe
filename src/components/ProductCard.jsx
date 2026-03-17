@@ -16,8 +16,6 @@ const ProductCard = ({ product }) => {
   };
 
   const handleAddToCart = () => {
-    // La magie opère : plus besoin de preventDefault ou stopPropagation
-    // car ce bouton n'est plus à l'intérieur d'un lien !
     addToCart(product);
   };
 
@@ -27,9 +25,9 @@ const ProductCard = ({ product }) => {
   return (
     <div className="product-card">
       <div className="product-card-image-container">
-        {/* Le premier lien englobe uniquement l'image.
+        {/* Le premier lien englobe uniquement l'image
             On ajoute tabIndex="-1" pour éviter que les utilisateurs
-            naviguant au clavier ne tabulent deux fois de suite sur le même produit. */}
+            naviguant au clavier ne tabulent deux fois de suite sur le même produit */}
         <Link to={productUrl} tabIndex="-1" aria-hidden="true">
           <img
             src={imageUrl}
@@ -47,7 +45,7 @@ const ProductCard = ({ product }) => {
       </div>
 
       <div className="product-card-info">
-        {/* Le lien principal pour le SEO et l'accessibilité est placé sur le titre */}
+        {/* lien principal pour le SEO et l'accessibilité est placé sur le titre */}
         <Link to={productUrl} className="product-card-title-link">
           <h3 className="product-card-name">{product.Nom_produit}</h3>
         </Link>

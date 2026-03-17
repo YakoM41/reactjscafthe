@@ -1,7 +1,7 @@
 import React from "react";
-import thesImage from "/src/assets/images/Image (Thés)_resultat.webp";
-import cafesImage from "/src/assets/images/Image (Cafés)_resultat.webp";
-import accessoiresImage from "/src/assets/images/Image (Accessoires)_resultat.webp";
+import thesImage from "/images/Image (Thés)_resultat.webp";
+import cafesImage from "/images/Image (Cafés)_resultat.webp";
+import accessoiresImage from "/images/Image (Accessoires)_resultat.webp";
 import { Link } from "react-router-dom";
 import "../styles/Home.css";
 
@@ -28,64 +28,20 @@ const universes = [
 
 const Universes = () => {
   return (
-    <section
-      style={{
-        padding: "4rem 2rem",
-        backgroundColor: "#E8E2D9",
-      }}
-    >
+    <section className="universes-section">
       <p className="univers-text">COLLECTIONS</p>
-      <h2
-        style={{ fontSize: "72px", fontWeight: "bold", marginBottom: "2rem" }}
-      >
-        Explorez nos univers
-      </h2>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "2rem",
-        }}
-      >
+      <h2 className="universes-title">Explorez nos univers</h2>
+      <div className="universes-grid">
         {universes.map((universe, index) => (
-          <Link
-            to={universe.path}
-            className="universe-card"
-            key={index}
-            style={{
-              display: "block",
-              textDecoration: "none",
-              position: "relative",
-              textAlign: "center",
-              color: "white",
-              borderRadius: "8px",
-              overflow: "hidden",
-            }}
-          >
+          <Link to={universe.path} className="universe-card" key={index}>
             <img
               className="universe-image"
               src={universe.image}
               alt={universe.name}
-              style={{
-                width: "100%",
-                height: "400px",
-                objectFit: "cover",
-                display: "block",
-              }}
             />
-            <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                zIndex: 2,
-              }}
-            >
+            <div className="universe-card-content">
               <p>{universe.count}</p>
-              <h3 style={{ fontSize: "2rem", fontWeight: "bold" }}>
-                {universe.name}
-              </h3>
+              <h3>{universe.name}</h3>
             </div>
           </Link>
         ))}

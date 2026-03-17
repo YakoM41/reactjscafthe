@@ -1,10 +1,13 @@
 import React from "react";
 import { useCart } from "../../contexts/CartContext.jsx";
 
+// Ce composant représente la première étape du tunnel d'achat : le récapitulatif du panier.
 const CartStep = ({ onNext }) => {
-  //C'est la fonction que le composant parent (Checkout) lui a transmise.
-  // CartStep n'a pas besoin de savoir comment passer à l'étape suivante,
-  // Il a juste besoin d'avoir un bouton qui appuie sur la "télécommande" qu'on lui a fournie.
+  // 'onNext' est une fonction passée par le composant parent (Checkout.jsx).
+  // Ce composant n'a pas besoin de savoir ce que fait 'onNext', il se contente de l'appeler quand on clique sur Continuer
+
+  // On récupère toutes les informations et fonctions nécessaires depuis le contexte du panier.
+  // permet à ce composant d'être synchro avec le reste de l'application.
   const {
     cartItems,
     updateQuantity,
@@ -13,8 +16,8 @@ const CartStep = ({ onNext }) => {
     shippingCost,
     total,
   } = useCart();
-  //Au lieu de stocker toutes les données du panier dans ce composant visuel, on délègue la logique à un Contexte global (CartContext).
-  //Permet à d'autres endroits de ton application d'accéder aux mêmes données cartItems ou total de manière synchronisée.
+
+  // fonction pour formater les prix
   const formatPrice = (price) => {
     return price.toFixed(2).replace(".", ",") + "€";
   };
@@ -22,21 +25,26 @@ const CartStep = ({ onNext }) => {
   return (
     <div className="cart-step">
       <h2>Votre Panier</h2>
-      {cartItems.length === 0 ? ( // Si le panier est vide, on affiche un message, sinon on affiche la liste.
+
+      {/* On vérifie si le panier est vide */}
+      {cartItems.length === 0 ? (
+        // Si oui on affiche un message
         <p>Votre panier est vide.</p>
       ) : (
+        // Sinon on affiche la liste des produits et le résumé
         <>
           <div className="cart-items">
+            {/* On boucle sur chaque article du panier pour l'afficher */}
             {cartItems.map((item) => {
-              //genere la liste panier
+              // On construit l'URL de l'image et si l'image n'existe pas on utilise une image par défaut
               const imageUrl = item.Images
                 ? `${import.meta.env.VITE_API_URL}/images/${item.Images}`
                 : "https://placehold.co/600x400";
 
               return (
+                // La 'key' est essentielle pour que React puisse optimiser le rendu de la liste
+                // On utilise un identifiant unique du produit (Référence) plutôt que l'index par sécurité
                 <div key={item.Référence} className="cart-item">
-                  {/*On utilise l'identifiant unique issu de la BDD ( Référence) plutôt que l'index du tableau.
-                  Permets à React d'optimiser le rendu de la liste plsu precisement lorsqu'on modifie une quantité ou supprime un article.*/}
                   <img
                     src={imageUrl}
                     alt={item.Nom_produit}
@@ -46,6 +54,7 @@ const CartStep = ({ onNext }) => {
                     <h3>{item.Nom_produit}</h3>
                     {item.size && <p>{item.size}</p>}
                     <div className="quantity-selector">
+                      {/* Bouton pour diminuer la quantité */}
                       <button
                         onClick={() =>
                           updateQuantity(item.Référence, item.quantity - 1)
@@ -54,6 +63,7 @@ const CartStep = ({ onNext }) => {
                         -
                       </button>
                       <span>{item.quantity}</span>
+                      {/* Bouton pour augmenter la quantité */}
                       <button
                         onClick={() =>
                           updateQuantity(item.Référence, item.quantity + 1)
@@ -64,7 +74,9 @@ const CartStep = ({ onNext }) => {
                     </div>
                   </div>
                   <div className="item-price">
+                    {/* On affiche le prix TOTAL pour cet article (prix unitaire * quantité) */}
                     <span>{formatPrice(item.Prix_TTC * item.quantity)}</span>
+                    {/* Bouton pour supprimer l'article du panier */}
                     <button
                       className="remove-button"
                       onClick={() => removeFromCart(item.Référence)}
@@ -76,6 +88,8 @@ const CartStep = ({ onNext }) => {
               );
             })}
           </div>
+
+          {/* Section qui résume la commande */}
           <div className="cart-summary">
             <h3>Résumé de la commande</h3>
             <div className="summary-row">
@@ -93,15 +107,17 @@ const CartStep = ({ onNext }) => {
           </div>
         </>
       )}
+
+      {/* Actions de l'étape */}
       <div className="step-actions">
+        {/* Le bouton Continuer est désactivé SI le panier est vide */}
         <button
           className="btn-primary"
           onClick={onNext}
           disabled={cartItems.length === 0}
         >
           Continuer
-        </button>{" "}
-        {/*empeche de continuer le tunnel d'achat si le panier est vide.*/}
+        </button>
       </div>
     </div>
   );

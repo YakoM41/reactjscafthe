@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SEO from "../components/SEO.jsx"; // Import SEO component
 import "../styles/Auth.css";
-import authImage from "../assets/images/ImgAuth_resultat.webp";
+import authImage from "/images/ImgAuth_resultat.webp";
 
 function Register() {
   const navigate = useNavigate();

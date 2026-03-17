@@ -5,9 +5,9 @@ import "react-loading-skeleton/dist/skeleton.css";
 import "../styles/Home.css";
 
 // Import assets directly
-import MatchaImage from "../assets/images/MatchaImperialJap_resultat.webp";
-import CafeImage from "../assets/images/CafeEthiopienYirga_resultat.webp";
-import TheImage from "../assets/images/TheOolongTaiwan_resultat.webp";
+import MatchaImage from "/images/MatchaImperialJap_resultat.webp";
+import CafeImage from "/images/CafeEthiopienYirga_resultat.webp";
+import TheImage from "/images/TheOolongTaiwan_resultat.webp";
 
 // Placeholders si l'API ne fonctionne pas
 const fallbackProducts = [
@@ -46,14 +46,14 @@ const FeaturedProducts = () => {
           `${import.meta.env.VITE_API_URL}/api/produits?limit=3`,
         );
         if (!response.ok) {
-          throw new Error("API response was not ok.");
+          throw new Error("Aucune réponse de l'API.");
         }
         const data = await response.json();
         const productsData = Array.isArray(data) ? data : data.produits;
         setProducts(productsData.slice(0, 3));
       } catch (error) {
         console.error(
-          "Impossible d'afficher les produits phares, utilisation du fallback.",
+          "Impossible d'afficher les produits phares, utilisation du fallback",
           error,
         );
         setProducts(fallbackProducts);

@@ -1,12 +1,12 @@
 :root {
     /* Palette de couleurs principale */
-    --color-primary: #3A4A35;       /* Vert foncé */
-    --color-secondary: #A0795F;     /* Marron/Doré */
-    --color-accent: #8B4513;        /* Marron foncé (SaddleBrown) */
+    --color-primary: #3A4A35;
+    --color-secondary: #A0795F;
+    --color-accent: #8B4513;
 
     /* Couleurs de fond */
-    --bg-color-main: #F5F1EB;       /* Beige principal */
-    --bg-color-light: #FBF9F3;      /* Beige très clair (sections) */
+    --bg-color-main: #F5F1EB;
+    --bg-color-light: #FBF9F3;
     --bg-color-white: #ffffff;
 
     /* Couleurs de texte */
@@ -15,10 +15,10 @@
     --text-color-light: #777777;
 
     /* Couleurs fonctionnelles */
-    --color-error: #c52b2b;         /* Rouge (badge, erreurs) */
+    --color-error: #c52b2b;
     --color-border: #dddddd;
 
-    /* Polices (pour référence future) */
+    /* Polices */
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Mukta', sans-serif;
 }

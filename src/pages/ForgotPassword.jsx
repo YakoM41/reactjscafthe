@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import SEO from "../components/SEO.jsx"; // Import SEO component
+import SEO from "../components/SEO.jsx";
 import "../styles/Auth.css";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [formState, setFormState] = useState({
+    message: "",
+    error: "",
+    loading: false,
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMsg("");
-    setMessage("");
-    setIsLoading(true);
+    setFormState({ message: "", error: "", loading: true });
 
     try {
       const response = await fetch(
@@ -28,20 +28,22 @@ function ForgotPassword() {
       const data = await response.json();
 
       if (!response.ok) {
-        setErrorMsg(data.message || "Erreur lors de l'envoi de l'email");
-        setIsLoading(false);
-        return;
+        throw new Error(data.message || "Erreur lors de l'envoi de l'email");
       }
 
-      setMessage(
-        "Un email de réinitialisation a été envoyé à votre adresse email.",
-      );
+      setFormState({
+        message:
+          "Un email de réinitialisation a été envoyé à votre adresse email.",
+        error: "",
+        loading: false,
+      });
       setEmail("");
     } catch (err) {
-      console.error("Erreur lors de la réinitialisation", err);
-      setErrorMsg("Une erreur s'est produite lors de l'envoi de l'email");
-    } finally {
-      setIsLoading(false);
+      setFormState({
+        message: "",
+        error: err.message || "Une erreur s'est produite.",
+        loading: false,
+      });
     }
   };
 
@@ -50,7 +52,7 @@ function ForgotPassword() {
       <SEO title="Mot de passe oublié - CafThé" noindex={true} />
       <div className="auth-image-section">
         <img
-          src="src/assets/images/ImgAuth.png"
+          src="/images/ImgAuth_resultat.webp"
           alt="Illustration"
           className="auth-image"
         />
@@ -75,11 +77,19 @@ function ForgotPassword() {
             />
           </div>
 
-          {errorMsg && <div className="error-msg">{errorMsg}</div>}
-          {message && <div className="success-msg">{message}</div>}
+          {formState.error && (
+            <div className="error-msg">{formState.error}</div>
+          )}
+          {formState.message && (
+            <div className="success-msg">{formState.message}</div>
+          )}
 
-          <button type="submit" className="auth-button" disabled={isLoading}>
-            {isLoading ? "Envoi en cours..." : "Envoyer le lien"}
+          <button
+            type="submit"
+            className="auth-button"
+            disabled={formState.loading}
+          >
+            {formState.loading ? "Envoi en cours..." : "Envoyer le lien"}
           </button>
 
           <div className="auth-link">

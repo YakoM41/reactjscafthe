@@ -6,11 +6,15 @@ const PrivateRoute = () => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    // You can return a loading spinner here
+    // Mettre un skeleton ici
     return <div>Chargement...</div>;
   }
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/connexion" />;
+  if (!isAuthenticated) {
+    return <Navigate to="/connexion" />;
+  }
+
+  return <Outlet />;
 };
 
 export default PrivateRoute;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useCart } from "../../contexts/CartContext"; // récupère les choix de livraison depuis le contexte.
-//Besoin que le composant OrderSummary a besoin de savoir instantanément si l'utilisateur a choisi "Colissimo" ou "Chronopost" pour recalculer le total et les frais de port en temps réel.
+//le comp OrderSummary a besoin de savoir si l'utilisateur a choisi "Colissimo" ou "Chronopost" pour recalculer le total et les frais de port en temps réel
 
 const ShippingStep = ({ onNext, onBack }) => {
   const {
@@ -26,10 +26,20 @@ const ShippingStep = ({ onNext, onBack }) => {
     return price.toFixed(2).replace(".", ",") + "€";
   };
 
+  const getDeliveryDate = (days) => {
+    const date = new Date();
+    date.setDate(date.getDate() + days);
+    return date.toLocaleDateString("fr-FR", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+    });
+  };
+
   const validateForm = () => {
-    //englobe la vérification de l'adresse, du code postal et de la ville dans une condition.
-    // Si l'utilisateur a choisi le retrait en magasin, ces champs n'existent pas visuellement.
-    // Grâce à ce bloc if, le script ne plantera pas en essayant de valider des champs invisibles.
+    //englobe la vérification de l'adresse, du code postal et de la ville dans une condition
+    // Si l'utilisateur a choisi le retrait en magasin, ces champs n'existent pas visuellement
+    // Grâce au if, le script ne plantera pas en essayant de valider des champs invisibles
     const newErrors = {};
 
     if (!formData.email.trim()) {
@@ -53,7 +63,7 @@ const ShippingStep = ({ onNext, onBack }) => {
       if (!formData.postalCode.trim()) {
         newErrors.postalCode = "Code postal requis";
       } else if (!/^\d{5}$/.test(formData.postalCode)) {
-        //validation précise, /^\d{5}$/ , pour s'assurer que le code postal français contient exactement 5 chiffres.
+        //validation précise (REGEX) /^\d{5}$/ , pour s'assurer que le code postal français contient exactement 5 chiffres.
         newErrors.postalCode = "Code postal invalide (5 chiffres)";
       }
       if (!formData.city.trim()) {
@@ -67,13 +77,13 @@ const ShippingStep = ({ onNext, onBack }) => {
 
   const handleChange = (e) => {
     //Même logique que dans le PaymentStep
-    //Si un utilisateur s'est trompé, le message d'erreur s'affiche. Dès qu'il commence à corriger, le message disparaît.
+    //Si un utilisateur s'est trompé, le message d'erreur s'affiche. Dès qu'il commence à corriger, le message disparaît
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-    // Clear error for this field when user starts typing
+    // Efface l'erreur si le champ est rempli
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -93,7 +103,7 @@ const ShippingStep = ({ onNext, onBack }) => {
     <div className="shipping-step">
       <h2>Informations de Livraison</h2>
 
-      {/* Delivery Method Selection */}
+      {/* Selection du mode de livraison */}
       <div className="delivery-method-section">
         <h3>Mode de livraison</h3>
         <div className="delivery-options">
@@ -137,7 +147,7 @@ const ShippingStep = ({ onNext, onBack }) => {
         </div>
       </div>
 
-      {/* Carrier Selection (only if home delivery) */}
+      {/* Choix adresse seulement si livraison à domicile */}
       {deliveryMethod === "home" && (
         <div className="carrier-section">
           <h3>Choix du transporteur</h3>
@@ -156,6 +166,9 @@ const ShippingStep = ({ onNext, onBack }) => {
                 <span className="carrier-name">Colissimo</span>
                 <span className="carrier-description">
                   Livraison sous 2-3 jours
+                </span>
+                <span className="carrier-delivery-time">
+                  Livraison estimée : {getDeliveryDate(3)}
                 </span>
               </div>
               <span className="carrier-price">
@@ -178,6 +191,9 @@ const ShippingStep = ({ onNext, onBack }) => {
                 <span className="carrier-description">
                   Livraison express sous 24h
                 </span>
+                <span className="carrier-delivery-time">
+                  Livraison estimée : {getDeliveryDate(1)}
+                </span>
               </div>
               <span className="carrier-price">
                 {formatPrice(carrierPrices.chronopost)}
@@ -199,6 +215,9 @@ const ShippingStep = ({ onNext, onBack }) => {
                 <span className="carrier-description">
                   Livraison sous 3-4 jours
                 </span>
+                <span className="carrier-delivery-time">
+                  Livraison estimée : {getDeliveryDate(4)}
+                </span>
               </div>
               <span className="carrier-price">
                 {formatPrice(carrierPrices.relais)}
@@ -208,7 +227,7 @@ const ShippingStep = ({ onNext, onBack }) => {
         </div>
       )}
 
-      {/* Store Pickup Info */}
+      {/* Info de retrait en magasin */}
       {deliveryMethod === "pickup" && (
         <div className="pickup-info">
           <h3>Adresse du magasin</h3>
@@ -227,7 +246,7 @@ const ShippingStep = ({ onNext, onBack }) => {
         </div>
       )}
 
-      {/* Shipping Address Form */}
+      {/* Formulaire de livraison */}
       <form className="shipping-form" onSubmit={handleSubmit}>
         <h3>
           {deliveryMethod === "pickup"

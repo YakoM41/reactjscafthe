@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SEO from "../components/SEO.jsx"; // Import SEO component
 import { AuthContext } from "../contexts/AuthContext.jsx";
 import "../styles/Auth.css";
-import authImage from "../assets/images/ImgAuth_resultat.webp";
+import authImage from "/images/ImgAuth_resultat.webp";
 
 function Login() {
   const { login } = useContext(AuthContext);

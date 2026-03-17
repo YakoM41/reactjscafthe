@@ -15,12 +15,12 @@ const Checkout = () => {
   const [currentStep, setCurrentStep] = useState("cart"); // 'cart', 'shipping', 'payment', 'confirmation'
 
   const goToNextStep = () => {
-    //fction qui fait avancer l'user.
+    //fonction qui fait avancer l'utilisateur dans le tunnel d'achat
     if (currentStep === "cart") {
       if (!isAuthenticated) {
-        setCurrentStep("login-required"); // Si on est sur "cart" et que l'utilisateur n'est pas connecté (!isAuthenticated), on force le passage à l'étape "login-required".
+        setCurrentStep("login-required"); // SI on est sur "cart" et que l'utilisateur n'est pas connecté (!isAuthenticated), on force le passage à l'étape "login-required"
       } else {
-        setCurrentStep("shipping"); // Si on est sur "cart" et connecté, on passe à "shipping"
+        setCurrentStep("shipping"); // SI on est sur "cart" et qu'on est connecté on passe à "shipping"
       }
     } else if (currentStep === "shipping") setCurrentStep("payment");
     else if (currentStep === "payment") setCurrentStep("confirmation");
@@ -32,13 +32,13 @@ const Checkout = () => {
   };
 
   const renderStep = () => {
-    // Utilise une instruction switch pour déterminer quel composant enfant afficher en fonction de la valeur de currentStep.
+    // Utilise une instruction "switch" pour indiquer quel composant enfant afficher en fonction de la valeur de currentStep
     switch (
-      currentStep // switch évite d'enchaîner des dizaines de conditions if/else
+      currentStep // switch évite d'enchaîner des plusieurs if/else
     ) {
       case "cart":
         return <CartStep onNext={goToNextStep} />;
-      case "login-required": // le code renvoie directement du HTML/JSX avec des liens vers tes pages de connexion/inscription via le composant <Link> de React Router.
+      case "login-required": // le code renvoie directement du HTML/JSX avec des liens vers les pages de connexion/inscription via le composant <Link>
         return (
           <div className="login-required-step">
             <div className="login-required-content">
@@ -77,10 +77,7 @@ const Checkout = () => {
       <SEO title="Paiement - CafThé" noindex={true} />
       <div className="checkout-header">
         <h3>CafThé</h3>
-        <Stepper currentStep={currentStep} />{" "}
-        {/*Le Stepper (la barre de
-        progression visuelle en haut) pour surligner l'étape
-        active.*/}
+        <Stepper currentStep={currentStep} /> {/*Le Stepper, l'étape active */}
       </div>
       <div className="checkout-body">
         <div className="checkout-main">{renderStep()}</div>

@@ -1,37 +1,32 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext.jsx";
+import { AuthContext, useAuth } from "../contexts/AuthContext.jsx";
 import { useCart } from "../contexts/CartContext.jsx";
-import "../styles/header.css";
 import { useWishlist } from "../contexts/WishlistContext.jsx";
+import "../styles/header.css";
 
-// Import assets
-import logoImg from "../assets/images/Caf’Thé (5) (1)_resultat.webp";
-import logoHomeImg from "../assets/images/LogoHome.webp";
-import searchIcon from "../assets/images/icons/ButtonSearch.svg";
-import loginIcon from "../assets/images/icons/ButtonLog.svg";
-import favIcon from "../assets/images/icons/ButtonFav.svg";
-import cartIcon from "../assets/images/icons/ButtonCart.svg";
-
-// Import new home icons
-import searchIconHome from "../assets/images/icons/ButtonSearch2.svg";
-import loginIconHome from "../assets/images/icons/ButtonLog2.svg";
-import favIconHome from "../assets/images/icons/ButtonFav2.svg";
-import cartIconHome from "../assets/images/icons/ButtonCart2.svg";
+// --- Regroupement des assets ---
+import logoDefault from "/images/Caf’TheResultat.webp";
+import logoHome from "/images/LogoHome.webp";
+import searchIcon from "/images/icons/ButtonSearch.svg";
+import loginIcon from "/images/icons/ButtonLog.svg";
+import favIcon from "/images/icons/ButtonFav.svg";
+import cartIcon from "/images/icons/ButtonCart.svg";
+import searchIconHome from "/images/icons/ButtonSearch2.svg";
+import loginIconHome from "/images/icons/ButtonLog2.svg";
+import favIconHome from "/images/icons/ButtonFav2.svg";
+import cartIconHome from "/images/icons/ButtonCart2.svg";
 
 function Header({ isTransparent }) {
-  const { user, isAuthenticated, logout } = useContext(AuthContext);
+  const { user, isAuthenticated } = useAuth();
   const { cartItems } = useCart();
+  const { wishlistItems } = useWishlist();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { wishlistItems } = useWishlist();
-
-  const handleLogout = () => {
-    logout();
-  };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -39,15 +34,19 @@ function Header({ isTransparent }) {
       navigate(`/produits?search=${encodeURIComponent(searchTerm)}`);
       setIsSearchOpen(false);
       setSearchTerm("");
-      setIsMobileMenuOpen(false); // Close menu on search
+      setIsMobileMenuOpen(false);
     }
   };
 
-  const toggleSearch = () => {
-    setIsSearchOpen(!isSearchOpen);
-    if (!isSearchOpen) {
-      setTimeout(() => document.getElementById("searchInput")?.focus(), 100);
-    }
+  const isHome = location.pathname === "/";
+  const currentLogo = isHome ? logoHome : logoDefault;
+
+  // variable pour gérer les icônes
+  const icons = {
+    search: isHome ? searchIconHome : searchIcon,
+    login: isHome ? loginIconHome : loginIcon,
+    fav: isHome ? favIconHome : favIcon,
+    cart: isHome ? cartIconHome : cartIcon,
   };
 
   const totalItemsInCart = cartItems.reduce(
@@ -55,20 +54,11 @@ function Header({ isTransparent }) {
     0,
   );
 
-  const isHome = location.pathname === "/";
-  const currentLogo = isHome ? logoHomeImg : logoImg;
-  
-  // Select icons based on route
-  const currentSearchIcon = isHome ? searchIconHome : searchIcon;
-  const currentLoginIcon = isHome ? loginIconHome : loginIcon;
-  const currentFavIcon = isHome ? favIconHome : favIcon;
-  const currentCartIcon = isHome ? cartIconHome : cartIcon;
-
   return (
     <nav className={`navBar ${isTransparent ? "navBar-transparent" : ""}`}>
       <div className="nav-left">
         <Link to="/panier" className="navIcons cart-icon-container mobile-cart">
-          <img src={currentCartIcon} className="nav-icon-img" alt="Panier" />
+          <img src={icons.cart} className="nav-icon-img" alt="Panier" />
           {totalItemsInCart > 0 && (
             <span className="cart-badge">{totalItemsInCart}</span>
           )}
@@ -76,47 +66,91 @@ function Header({ isTransparent }) {
       </div>
 
       <div className={`navLink ${isMobileMenuOpen ? "mobile-menu-open" : ""}`}>
-        {/* Main navigation links */}
-        <Link to="/produits?category=thes" className="navThe" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link
+          to="/produits?category=thes"
+          className="navThe"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
           Thés
         </Link>
-        <Link to="/produits?category=cafes" className="navCaf" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link
+          to="/produits?category=cafes"
+          className="navCaf"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
           Cafés
         </Link>
-        <Link to="/produits?category=accessoires" className="navAcc" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link
+          to="/produits?category=accessoires"
+          className="navAcc"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
           Accessoires
         </Link>
-        <Link to="/notre-histoire" className="navHist" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link
+          to="/notre-histoire"
+          className="navHist"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
           Notre histoire
         </Link>
 
-        {/* --- MOBILE-ONLY ACTIONS --- */}
         <div className="navActions-mobile">
           <div className={`search-container ${isSearchOpen ? "active" : ""}`}>
             {isSearchOpen && (
               <form onSubmit={handleSearchSubmit} className="search-form">
-                <input id="searchInputMobile" type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Rechercher..." className="search-input" />
+                <input
+                  id="searchInputMobile"
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Rechercher..."
+                  className="search-input"
+                />
               </form>
             )}
-            <button onClick={toggleSearch} className="navIcons search-btn">
-              <img src={currentSearchIcon} className="nav-icon-img" alt="Recherche" />
+            <button
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              className="navIcons search-btn"
+            >
+              <img
+                src={icons.search}
+                className="nav-icon-img"
+                alt="Recherche"
+              />
             </button>
           </div>
 
           <div className="accountSection">
             {isAuthenticated ? (
-              <Link to="/compte" className="nav-account-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link
+                to="/compte"
+                className="nav-account-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Bonjour, {user.prenom}
               </Link>
             ) : (
-              <Link to="/connexion" className="navIcons" onClick={() => setIsMobileMenuOpen(false)}>
-                <img src={currentLoginIcon} className="nav-icon-img" alt="Connexion / Inscription" />
+              <Link
+                to="/connexion"
+                className="navIcons"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <img
+                  src={icons.login}
+                  className="nav-icon-img"
+                  alt="Connexion / Inscription"
+                />
               </Link>
             )}
           </div>
 
-          <Link to="/favoris" className="navIcons cart-icon-container" onClick={() => setIsMobileMenuOpen(false)}>
-            <img src={currentFavIcon} className="nav-icon-img" alt="Favoris" />
+          <Link
+            to="/favoris"
+            className="navIcons cart-icon-container"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <img src={icons.fav} className="nav-icon-img" alt="Favoris" />
             {wishlistItems.length > 0 && (
               <span className="cart-badge">{wishlistItems.length}</span>
             )}
@@ -129,15 +163,24 @@ function Header({ isTransparent }) {
       </Link>
 
       <div className="navActions">
-        {/* --- DESKTOP-ONLY ACTIONS --- */}
         <div className={`search-container ${isSearchOpen ? "active" : ""}`}>
           {isSearchOpen && (
             <form onSubmit={handleSearchSubmit} className="search-form">
-              <input id="searchInput" type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Rechercher..." className="search-input" />
+              <input
+                id="searchInput"
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Rechercher..."
+                className="search-input"
+              />
             </form>
           )}
-          <button onClick={toggleSearch} className="navIcons search-btn">
-            <img src={currentSearchIcon} className="nav-icon-img" alt="Recherche" />
+          <button
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            className="navIcons search-btn"
+          >
+            <img src={icons.search} className="nav-icon-img" alt="Recherche" />
           </button>
         </div>
 
@@ -148,27 +191,37 @@ function Header({ isTransparent }) {
             </Link>
           ) : (
             <Link to="/connexion" className="navIcons">
-              <img src={currentLoginIcon} className="nav-icon-img" alt="Connexion / Inscription" />
+              <img
+                src={icons.login}
+                className="nav-icon-img"
+                alt="Connexion / Inscription"
+              />
             </Link>
           )}
         </div>
 
         <Link to="/favoris" className="navIcons cart-icon-container">
-          <img src={currentFavIcon} className="nav-icon-img" alt="Favoris" />
+          <img src={icons.fav} className="nav-icon-img" alt="Favoris" />
           {wishlistItems.length > 0 && (
             <span className="cart-badge">{wishlistItems.length}</span>
           )}
         </Link>
 
-        {/* --- ALWAYS VISIBLE CART --- */}
-        <Link to="/panier" className="navIcons cart-icon-container desktop-cart">
-          <img src={currentCartIcon} className="nav-icon-img" alt="Panier" />
+        <Link
+          to="/panier"
+          className="navIcons cart-icon-container desktop-cart"
+        >
+          <img src={icons.cart} className="nav-icon-img" alt="Panier" />
           {totalItemsInCart > 0 && (
             <span className="cart-badge">{totalItemsInCart}</span>
           )}
         </Link>
-        
-        <button className="mobile-menu-toggle" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Menu">
+
+        <button
+          className="mobile-menu-toggle"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Menu"
+        >
           <span></span>
           <span></span>
           <span></span>

@@ -6,14 +6,14 @@
 }
 
 .back-to-top-button {
-    background-color: #000;
-    color: #fff;
+    background-color: var(--text-color-dark);
+    color: var(--bg-color-white);
     border: none;
     border-radius: 50%;
     width: 40px;
     height: 40px;
     font-size: 24px;
-    line-height: 50px;
+    line-height: 40px; /* Ajusté pour un meilleur centrage vertical */
     text-align: center;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

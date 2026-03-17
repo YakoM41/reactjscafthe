@@ -32,7 +32,7 @@ const SEO = ({ title, description, noindex = false }) => {
         document.head.appendChild(newRobotMetaTag);
       }
     } else {
-      // Si noindex est faux, on supprime la balise si elle existe
+      // Si noindex est faux on supp la balise si elle existe
       if (robotMetaTag) {
         document.head.removeChild(robotMetaTag);
       }
